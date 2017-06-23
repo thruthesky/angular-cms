@@ -1,3 +1,17 @@
 <p>
   home works!
 </p>
+
+
+
+<button class="btn btn-primary" routerLink="/register">Go to register page</button>
+
+
+  <i class="fa fa-gears"  aria-hidden="true"></i>
+  
+
+  <ul>
+    <li *ngFor="let item of items | async">
+      {{ item.name }}
+    </li>
+  </ul>

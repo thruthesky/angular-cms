@@ -3,31 +3,91 @@
 For Angular Project.
 
 
+## Todo
+
+* `app` service as the root reference of the whole app project.
+    * `app.share` is a share servcie.
+    * `app.config` is a config service.
+    * `app.lib` is a javascript library service/container class.
+    * `app.db` is the storage ( may be localstorage ).
+    * `app.cookie` is the cookie management library.
+
+    * All template bindings goes to `app.classNo` and classNo is a getter.
+
+
+* Put ID of all element. ex) '#register-form-id', '#update-form-id'
+
 ## Plan
 
-* We develop desktop-browser-website and mobile-web-app.
-* We develop a separate app using angular showing simple data like post lists and when user clicks or login, then the app will launch inappbrowser to serve the web.
+* We develop desktop-browser-website and mobile-web-app only. Not mobile-app.
+* But we will develop a separate small-size mobile-app using angular to show the basic information about the site(posts/blogs) and when user clicks or login, then the app will launch inappbrowser to serve the web.
 
-    * Reason: If we develope for apps, service-worker, social-login, camera-photo functionality and much more code will not be compatible. You have to maintain two source code and that is not easy work.
+    * Reason: If we go for an app that has all the same functionality,
+     then it is very difficult to maintain same source code.
 
-    * If you simply give up on camera functionality of mobile-app and use inappbrowser to serve web, things will get much easier and you can benefit service worker.
+     There is nothing like write-once and run everywhere. They are lying.
 
-    * Using service worker, the web-app will cache remote data on locally which is not needed by mobile-app.
+     Computer does not have a camera functionality like mobile-phone.
 
-    * For notification, you can still do it with app and at the same time, you can use message of web-app.
+     So you need to maintain two different code. One for desktop and another for mobile-app.
 
-    * And social login is much easier on web-app.
+     Likewise, mobile does not need service-worker while desktop browser needs.
+
+     Messages, desktop browser needs web-app messages while mobile-app needs push notification.
+
+     Social logins, it is very difficult to implement social logins on mobile-app while it is relatively managible on desktop. and they need different code.
+     
+     And there are much more inconsitencies between desktop-browsers, web-app, and mobile-apps.
+
+     
+    * If we simply give up on mobile-app's functionality like camera function of mobile-app and use inappbrowser to serve only web/web-app, things will get much easier because you only need to have one code for web. And you can focus on benefitting service worker while you still have chance to use push notifiation.
+
+
 
 ## Test
 
 * Use nightmare to test the result.
 
 
+## Resources
+
+* firebase + angularfire4
 
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Development Environment
+
+* Run `npm run hmr` or `ng serve --hmr -e=hmr` for a HMR dev server.
+We only support HMR.
+*.scss must not be loaded by each component class. Instead, it must be @imported by global 'styles.scss'.
+
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+* All "*.scss" must be '@import'ed by style.scss
+
+
+
+## 3rd party libraries
+
+* jQuery
+
+jQuery is needed by some other 3rd party libraries like 'Naver ID Login API'.
+
+Since jQuery is the most wanted and standard library and a lot of 3rd party libraries are depending on jQuery, we simple include jQuery.
+
+Installed jQuery version: jQuery 3.2.1 with @types/jquery 3.2.2
+
+
+* naver login api
+
+
+* kakao api
+
+
+
+
+
 
 ## Code scaffolding
 

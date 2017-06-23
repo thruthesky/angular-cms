@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "angular-cms"
+    "name": "Angular CMS"
   },
   "apps": [
     {
@@ -19,13 +19,18 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "./third-party/css/font-awesome-4/css/font-awesome.min.css",
+        "./third-party/css/bootstrap-alpha-6/bootstrap.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "./third-party/js/jquery-3.2.1.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "prod": "environments/environment.prod.ts",
+        "hmr": "environments/environment.hmr.ts"
       }
     }
   ],
@@ -52,6 +57,7 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }

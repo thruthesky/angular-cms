@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
+import {} from 'jquery';
 @Component({
   selector: 'app-home',
-  templateUrl: './home.html',
-  styleUrls: ['./home.scss']
+  templateUrl: './home.html'
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
-
+  items: FirebaseListObservable<any[]>;
+  constructor( db: AngularFireDatabase ) {
+    this.items = db.list('/items');
+  }
+  
   ngOnInit() {
   }
 

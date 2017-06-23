@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+@import './styles/variables.scss';
+@import './styles/mixin.scss';
+@import './styles/base.scss';
+@import './styles/layout.scss';
+@import './styles/module.scss';
+
+@import './app/page/home/home.scss';
+@import './app/page/register/register.scss';
