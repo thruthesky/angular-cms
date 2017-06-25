@@ -8,9 +8,9 @@ import {} from 'jquery';
 })
 export class HomePage implements OnInit {
 
-  items: FirebaseListObservable<any[]>;
+
   constructor( db: AngularFireDatabase ) {
-    this.items = db.list('/items');
+    
   }
   
   ngOnInit() {

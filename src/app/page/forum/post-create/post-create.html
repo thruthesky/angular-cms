@@ -1,0 +1,20 @@
+<h2>Create a Post</h2>
+  <div style="color: darkred;">{{ postError }}</div>
+  <form [formGroup]=" postFormGroup " (ngSubmit)="onSubmitPostForm()">
+<div *ngIf=" categories ">
+  <span *ngFor=" let c of categories; let i = index; ">
+    <input type="checkbox" value="{{ c.id }}" (change)=" onChangePostFormCategory( $event ) "> {{ c['name'] }}
+  </span>
+</div>
+    <div>Subject: <input formControlName="subject"></div>
+    <div><textarea formControlName="content" cols="40" rows="4" placeholder="Please input content"></textarea></div>
+    <div>File/Photo Upload: <input type="file"></div>
+    <div>
+      Options:
+      <!--<input type="checkbox" [(ngModel)]=" postForm.sticky_forum "> Sticky on selected forums.
+  <input type="checkbox" [(ngModel)]=" postForm.sticky_all_forum "> Sticky on all forums.-->
+    </div>
+    <div>
+      <button >Submit Post</button>
+    </div>
+  </form>

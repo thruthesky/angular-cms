@@ -1,0 +1,28 @@
+
+<h2>Forum Category</h2>
+<div style="color: darkred;">{{ categoryError }}</div>
+Create a forum category:
+<form [formGroup]="categoryFormGroup" (ngSubmit)="onCategoryFormSubmit()">
+  <input placeholder="Category ID" formControlName='id'>
+  <input placeholder="Category Name" formControlName='name'>
+  <button type="submit">Submit</button>
+</form>
+
+<div *ngIf=" categories && categories.length ">
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>EDIT</th>
+      <th>DELETE</th>
+    </tr>
+    <tr *ngFor=" let c of categories; let i = index">
+      <td>{{ c.id }}</td>
+      <td><input type="text" name="name" value="{{ c.name }}" [(ngModel)]="c.name" size="7"></td>
+      <td><input type="text" name="desc" value="{{ c.description }}" [(ngModel)]="c.description" size="10"></td>
+      <td><button (click)="onClickCategoryEdit( c.id )">EDIT</button></td>
+      <td><button (click)="onClickCategoryDelete( c.id )">DELETE</button></td>
+    </tr>
+  </table>
+</div>

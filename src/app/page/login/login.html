@@ -1,0 +1,24 @@
+
+<button type="button" routerLink="/">Go to home</button>
+
+
+
+<div *ngIf=" !user.isLogged ">
+  <button (click)="onClickLoginWithGoogle()">Google Login</button>
+  <button (click)="onClickLoginWithFacebook()">Facebook Login</button>
+</div>
+<div *ngIf=" user.isLogged ">
+  You are logged in as <b>{{ user.auth.currentUser.displayName }}</b>
+  <button (click)=" user.logout() ">Loggout</button>
+</div>
+
+
+
+
+<div>Am I admin? {{ user.isAdmin }}</div>
+
+
+
+<p>
+  login works!
+</p>

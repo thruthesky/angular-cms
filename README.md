@@ -51,8 +51,20 @@ For Angular Project.
 
 ## Resources
 
-* firebase + angularfire4
+* font-awesome 4
+* bootstrap 4
+* jQuery 3.x
+* [firebase + angularfire4](https://github.com/angular/angularfire2)
+* [firebase-backend](https://github.com/thruthesky/firebase-backend)
 
+
+## Alert Box, Confirm Box, Input Box
+
+````
+constructor( alert: Alert ) {
+    alert.open( { content: 'hi' } );
+}
+````
 
 
 ## Development Environment
