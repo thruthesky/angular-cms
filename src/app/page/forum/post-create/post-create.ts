@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import {
     UserService,
@@ -7,6 +7,7 @@ import {
     CATEGORIES,
     POST, POSTS
 } from './../../../../firebase-backend/firebase-backend.module';
+
 
 @Component({
     selector: 'post-create-component',
@@ -23,6 +24,8 @@ export class PostCreateComponent implements OnInit {
 
     categories: CATEGORIES = [];
 
+    @Output() success: EventEmitter<string> = new EventEmitter<string>();
+
     constructor(
         private fb: FormBuilder,
         public user: UserService,
@@ -33,7 +36,9 @@ export class PostCreateComponent implements OnInit {
         this.init();
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
 
 
     init() {
@@ -75,17 +80,22 @@ export class PostCreateComponent implements OnInit {
 
 
     onSubmitPostForm() {
-        let form: POST = this.postFormGroup.value;
+        let form = <POST> this.postFormGroup.value;
         console.log("Going to create a post : ", form);
-
 
         form.uid = this.user.uid;
         form.name = this.user.name;
 
+        form.secret = this.user.secretKey;
+
+
         this.api.post(form).subscribe(key => {
             console.log("Post create with key: ", key);
+            this.success.emit( <string><any>key );
         }, e => {
             console.error(e);
+            // console.log(e);
+            // console.log(e.message);
         });
 
     }

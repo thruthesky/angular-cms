@@ -1,24 +1,32 @@
-
 <button type="button" routerLink="/">Go to home</button>
 
 
 
+
+<div id="naver_id_login"></div>
 <div *ngIf=" !user.isLogged ">
   <button (click)="onClickLoginWithGoogle()">Google Login</button>
   <button (click)="onClickLoginWithFacebook()">Facebook Login</button>
+  <button (click)="onClickLoginWithKakao()">Kakao Login</button>
+  <button (click)="onClickLoginWithNaver()">Naver Login</button>
 </div>
+
+
+
+
+
 <div *ngIf=" user.isLogged ">
   You are logged in as <b>{{ user.auth.currentUser.displayName }}</b>
   <button (click)=" user.logout() ">Loggout</button>
+
+
+  <div>Who am I? : {{ user.name }}</div>
+
+  <div>Am I admin? {{ user.isAdmin }}</div>
+
+</div>
+<div *ngIf=" ! user.isLogged ">
+  * You are not logged in !!
 </div>
 
 
-
-
-<div>Am I admin? {{ user.isAdmin }}</div>
-
-
-
-<p>
-  login works!
-</p>

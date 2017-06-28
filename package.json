@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "s": "ng serve --hmr -e=hmr",
+    "ssl": "sudo ng serve --ssl true --ssl-key './tmp/privkey.pem' --ssl-cert './tmp/fullchain.pem' --host sonub.com --port 443",
     "publish": "ng build --output-path=www"
   },
   "private": true,

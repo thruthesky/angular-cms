@@ -27,6 +27,7 @@ import { ForumPageModule } from './page/forum/forum-page-module';
 
 
 import { AlertModal } from './modal/alert/alert';
+import { AppService } from './provider/app-service';
 
 
 
@@ -56,7 +57,7 @@ const appRoutes: Routes = [
     BootstrapModule,
     ForumPageModule
   ],
-  providers: [],
+  providers: [ AppService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

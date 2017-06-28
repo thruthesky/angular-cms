@@ -1,29 +1,9 @@
 <button type="button" routerLink="/">Go to Home</button>
 
-
-<h1>forum</h1>
-<div>Am I admin? {{ user.isAdmin }}</div>
-
 <button type="button" (click)="onClickShowCategory()">Show Category</button>
 <button type="button" (click)="onClickCreatePost()">Create a Post</button>
-
 
 <categories-component *ngIf=" showCategory "></categories-component>
 <post-create-component *ngIf=" showPostCreateForm "></post-create-component>
 
-
-
-<hr>
-<h2>Posts</h2>
-
-<div *ngFor="let post of posts; let i = index ">
-  <div class="subject">
-    {{ post.subject }}
-    <button (click)=" onClickPostEdit( post ) ">EDIT</button>
-  </div>
-  <div>
-    <b>{{ post.name }}</b>
-    {{ post.date }}
-  </div>
-  <div class="content" style="padding: 1em; background-color: #efefef;">{{ post.content }}</div>
-</div>
+<post-list-component></post-list-component>

@@ -17,6 +17,16 @@ For Angular Project.
 
 * Put ID of all element. ex) '#register-form-id', '#update-form-id'
 
+
+
+* Each component must follow the following rules
+
+    * `success` event for success of its role.
+        For instance, `success` event for `post-create-compoent` when it successfully created a post.
+    * `error` event for error of its role.
+
+
+
 ## Plan
 
 * We develop desktop-browser-website and mobile-web-app only. Not mobile-app.
@@ -119,3 +129,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Further help
+
+
+# login, secret key, kakao login, etc.
+
+@see firebase-backend README.md

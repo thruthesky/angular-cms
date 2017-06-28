@@ -1,0 +1,15 @@
+
+<h2>Posts</h2>
+
+<div *ngFor="let post of posts; let i = index ">
+  <div class="subject">
+    {{ post.subject }}
+    <button (click)=" onClickPostEdit( post ) ">EDIT</button>
+  </div>
+  <div>
+    <b>{{ post.name }}</b>
+    {{ post.date }}
+  </div>
+  <div class="content" style="padding: 1em; background-color: #efefef;">{{ post.content }}</div>
+</div>
+
