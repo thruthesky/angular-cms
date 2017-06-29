@@ -68,6 +68,11 @@ For Angular Project.
 * [firebase-backend](https://github.com/thruthesky/firebase-backend)
 
 
+## Management
+
+* Google Analystics : https://analytics.google.com/analytics/web/?hl=ko&pli=1#realtime/rt-overview/a101873841w149192538p154095534/
+
+
 ## Alert Box, Confirm Box, Input Box
 
 ````

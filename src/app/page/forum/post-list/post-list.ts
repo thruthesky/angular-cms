@@ -28,10 +28,10 @@ export class PostListComponent implements OnInit, AfterViewInit{
         private edit: PostEditModal
     ) {
         this.loadPosts(() => {
-            setTimeout(()=>
-                (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
-                    .click(),
-                    1000);
+            // setTimeout(()=>
+            //     (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
+            //         .click(),
+            //         1000);
         });
     }
 
