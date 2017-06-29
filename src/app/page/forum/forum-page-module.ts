@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
-
 import { RouterModule, Routes } from '@angular/router';
 
 
@@ -14,6 +13,8 @@ import { ForumIndexComponent } from './index/index';
 import { PostListComponent } from './post-list/post-list';
 import { CategoriesComponent } from './categories/categories';
 import { PostCreateComponent } from './post-create/post-create';
+import { PostEditModal } from './post-edit/post-edit-modal';
+import { PostEditModalContent } from './post-edit/post-edit-modal-content';
 
 
 
@@ -27,13 +28,17 @@ const appRoutes: Routes = [
         ForumIndexComponent,
         PostListComponent,
         CategoriesComponent,
-        PostCreateComponent
+        PostCreateComponent,
+        PostEditModalContent
+    ],
+    entryComponents: [
+        PostEditModalContent
     ],
     imports: [
         CommonModule,
         FormsModule, ReactiveFormsModule,
         RouterModule.forChild(appRoutes)
     ],
-    providers: [],
+    providers: [ PostEditModal ],
 })
 export class ForumPageModule { }

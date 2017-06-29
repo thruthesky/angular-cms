@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     UserService,
     ForumService,
@@ -57,8 +57,6 @@ export class PostCreateComponent implements OnInit {
         this.forum.observeCategory().subscribe(res => {
             console.log(res);
             this.categories = res;
-            // this.postFormGroup.get('categories').setValue( this.categories );
-            // console.log( this.postFormGroup.value );
         });
     }
 
@@ -87,7 +85,6 @@ export class PostCreateComponent implements OnInit {
         form.name = this.user.name;
 
         form.secret = this.user.secretKey;
-
 
         this.api.post(form).subscribe(key => {
             console.log("Post create with key: ", key);

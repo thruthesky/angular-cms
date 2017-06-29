@@ -9,7 +9,8 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts",
-    "./firebase-backend/functions/**/*.ts",
-    "./firebase-backend/functions/test.ts"
+    "./firebase-backend/functions/index.ts",
+    "./firebase-backend/functions/test.ts",
+    "./firebase-backend/functions/node_modules/**/*.ts"
   ]
 }

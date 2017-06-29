@@ -1,0 +1,28 @@
+<h2>Edit Post</h2>
+<form [formGroup]=" formGroup " (ngSubmit)="onSubmitForm()">
+
+<div *ngIf=" categories ">
+    <label *ngFor=" let c of categories; let i = index; ">
+        <input type="checkbox"
+            value="{{ c.id }}"
+            (change)=" onChangeFormCategory( $event ) "
+            [attr.checked]="checked(c.id)">
+            {{ c['name'] }}
+    </label>
+</div>
+
+    <div>Subject: <input formControlName="subject"></div>
+    <div><textarea formControlName="content" cols="40" rows="4" placeholder="Please input content"></textarea></div>
+    <div>File/Photo Upload: <input type="file"></div>
+    <div>
+        Options:
+        <!--<input type="checkbox" [(ngModel)]=" postForm.sticky_forum "> Sticky on selected forums.
+  <input type="checkbox" [(ngModel)]=" postForm.sticky_all_forum "> Sticky on all forums.-->
+    </div>
+
+
+    <div>
+        <button type="submit">Post</button>
+    </div>
+    
+</form>
