@@ -9,7 +9,6 @@
 # compiled output
 /www
 /dist
-/tmp
 /out-tsc
 
 # dependencies
