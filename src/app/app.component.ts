@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppService } from './provider/app-service';
+import { AppService } from '../providers/app.service';
 import { ApiService } from './../firebase-backend/firebase-backend.module';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { } from 'cordova-plugin-device';

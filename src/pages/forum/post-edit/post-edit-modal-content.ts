@@ -2,13 +2,11 @@ import { Component, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  POST, CATEGORIES
-} from './../../../../firebase-backend/functions/model/forum/forum.interface';
-import {
+  POST, CATEGORIES,
   ForumService,
   UserService,
   ApiService
-} from './../../../../firebase-backend/firebase-backend.module';
+} from './../../../firebase-backend/firebase-backend.module';
 
 
 @Component({

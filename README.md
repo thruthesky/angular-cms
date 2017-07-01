@@ -3,14 +3,25 @@
 For Angular Project.
 
 
-## TODO
+# TODO
 
 * See issue on github
 
-## CODE DESIGN
+# Installation
 
-* `Dynamic Route`
-    * Since this app 
+$ git clone https://github.com/thruthesky/sonub
+$ cd sonub
+$ npm install --verbose
+$ git submodule update --init
+$ git submodule foreach git checkout master
+$ ng serve
+
+
+
+# CODE DESIGN
+
+* This project does not use `Lazy Loading`
+    * So, developers need careful on reducing the javascript source file size.
 
 * `AppService` is a root service ( root reference ) of the whole app project. it includes
     * `app.share` is a share servcie.
@@ -41,7 +52,7 @@ For Angular Project.
 
 
 
-## Plan
+# Plan
 
 * We develop desktop-browser-website and mobile-web-app only. Not mobile-app.
 * But we will develop a separate small-size mobile-app using angular to show the basic information about the site(posts/blogs) and when user clicks or login, then the app will launch inappbrowser to serve the web.
@@ -68,12 +79,9 @@ For Angular Project.
 
 
 
-## Test
-
-* Use nightmare to test the result.
 
 
-## Resources
+# Resources
 
 * font-awesome 4
 * bootstrap 4
@@ -82,7 +90,7 @@ For Angular Project.
 * [firebase-backend](https://github.com/thruthesky/firebase-backend)
 
 
-## Management
+# Management
 
 * Google Analystics : https://analytics.google.com/analytics/web/?hl=ko&pli=1#realtime/rt-overview/a101873841w149192538p154095534/
 
@@ -96,7 +104,7 @@ constructor( alert: Alert ) {
 ````
 
 
-## Development Environment
+# Development Environment
 
 * Run `npm run hmr` or `ng serve --hmr -e=hmr` for a HMR dev server.
 We only support HMR.
@@ -109,7 +117,7 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 
 
-## 3rd party libraries
+# 3rd party libraries
 
 * jQuery
 
@@ -130,24 +138,20 @@ Installed jQuery version: jQuery 3.2.1 with @types/jquery 3.2.2
 
 
 
-## Code scaffolding
+# Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
 
-## Build
+# Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `npm run ssl`
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Running unit tests
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+Run `npm run test` and Nightmare will begin to work.
 
-## Further help
+
 
 
 # login, secret key, kakao login, etc.
