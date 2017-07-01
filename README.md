@@ -154,6 +154,6 @@ Run `npm run test` and Nightmare will begin to work.
 
 
 
-# login, secret key, kakao login, etc.
+# Login security, kakao login, secret key, etc.
 
-@see firebase-backend README.md
+@see firebase-backend README.md## Third party login security

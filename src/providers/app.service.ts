@@ -116,8 +116,13 @@ export class AppService {
     /**
      * Third social login.
      * 
-     * Register into Firebase using email/password auth.
-     * If alread registered, then simple login.
+     * @note This method will be invoked if a user logs in with 'third party social` like kakao, naver, instagram.
+     * @note All third party social login will/must come here.
+     * 
+     * @role In this method, the user with 'third party social login' must register into Firebase using email/password auth.
+     *          - If alread registered, then simple login.
+     * 
+     * @attion for security, see README
      * 
      */
     thirdPartySocialLoginSuccessHandler(user: SOCIAL_PROFILE, callback) {
@@ -137,14 +142,17 @@ export class AppService {
 
     emailLogin(user: SOCIAL_PROFILE, success, error) {
         console.log("emailLogin()");
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+
+        this.user.login( user.email, user.password )
+        // firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(success)
             .catch(error);
     }
 
     emailRegister(user: SOCIAL_PROFILE, callback) {
         console.log("emailRegister()");
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        // firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        this.user.register(user.email, user.password)
             .then(() => this.updateProfile(user, callback)) /// user created, so update profile.
             .catch(e => {                                          /// if fail on user create, then, login and update profile.
                 console.log("Caught in emailRegister. error code:", e['code']);
