@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -15,6 +15,9 @@ import { environment } from '../environments/environment';
 import { FirebaseBackendModule } from './../firebase-backend/firebase-backend.module';
 
 import { BootstrapModule } from './provider/bootstrap/bootstrap-module';
+
+// global custom error handler. need help here.
+import { CustomErrorHandler } from './app.error-handler';
 
 
 import { AppComponent } from './app.component';
@@ -32,9 +35,10 @@ import { AppService } from './provider/app-service';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomePage },
   { path: 'register', component: RegisterPage },
-  { path: 'login', component: LoginPage }
+  { path: 'login', component: LoginPage },
+  { path: '', component: HomePage, pathMatch: 'full' },
+  { path: '**', component: HomePage }
 ];
 
 @NgModule({
@@ -57,7 +61,10 @@ const appRoutes: Routes = [
     BootstrapModule,
     ForumPageModule
   ],
-  providers: [ AppService ],
+  providers: [
+    AppService,
+    { provide: ErrorHandler, useClass: CustomErrorHandler }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

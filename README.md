@@ -3,16 +3,30 @@
 For Angular Project.
 
 
-## Todo
+## TODO
 
-* `app` service as the root reference of the whole app project.
+* See issue on github
+
+## CODE DESIGN
+
+* `Dynamic Route`
+    * Since this app 
+
+* `AppService` is a root service ( root reference ) of the whole app project. it includes
     * `app.share` is a share servcie.
     * `app.config` is a config service.
     * `app.lib` is a javascript library service/container class.
     * `app.db` is the storage ( may be localstorage ).
     * `app.cookie` is the cookie management library.
 
-    * All template bindings goes to `app.classNo` and classNo is a getter.
+    * All template bindings must use `getter` variables instead of using class property.
+        For instance;
+        Use `app.varName` where `varName` is a `getter`.
+
+    * `app.service` MUST NOT include any child component or child service of the project to avoid circular reference.
+        For instance;
+        `AppSerivce` must not import `HomePage` component because `HomePage` compoent will import `AppService`.
+        It is all the same to any service class.
 
 
 * Put ID of all element. ex) '#register-form-id', '#update-form-id'
