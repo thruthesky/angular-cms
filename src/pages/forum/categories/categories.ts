@@ -6,9 +6,9 @@ import {
     ApiService,
     CATEGORIES,
     POST, POSTS
-} from './../../../../firebase-backend/firebase-backend.module';
+} from './../../../firebase-backend/firebase-backend.module';
 
-import { Alert } from './../../../provider/bootstrap/bootstrap-module';
+import { Alert } from './../../../providers/bootstrap/bootstrap-module';
 
 @Component({
     selector: 'categories-component',

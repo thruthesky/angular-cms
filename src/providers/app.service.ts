@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 import {
     UserService,
     SOCIAL_PROFILE
-} from './../../firebase-backend/firebase-backend.module';
+} from './../firebase-backend/firebase-backend.module';
 
 
 @Injectable()

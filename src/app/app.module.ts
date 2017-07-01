@@ -14,23 +14,23 @@ import { environment } from '../environments/environment';
 
 import { FirebaseBackendModule } from './../firebase-backend/firebase-backend.module';
 
-import { BootstrapModule } from './provider/bootstrap/bootstrap-module';
+import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 
 // global custom error handler. need help here.
 import { CustomErrorHandler } from './app.error-handler';
 
 
 import { AppComponent } from './app.component';
-import { HomePage } from './page/home/home';
-import { LoginPage } from './page/login/login';
-import { RegisterPage } from './page/register/register';
+import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 
 
-import { ForumPageModule } from './page/forum/forum-page-module';
+import { ForumPageModule } from '../pages/forum/forum-page.module';
 
 
-import { AlertModal } from './modal/alert/alert';
-import { AppService } from './provider/app-service';
+import { AlertModal } from '../modals/alert/alert';
+import { AppService } from '../providers/app.service';
 
 
 

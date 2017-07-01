@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PostEditModalContent } from './post-edit-modal-content';
-import { POST } from './../../../../firebase-backend/functions/model/forum/forum.interface';
+import { POST } from './../../../firebase-backend/firebase-backend.module';
 interface POST_EDIT_DATA {
   post: POST;
   success: (key: string) => void;

@@ -5,7 +5,7 @@ import {
     ApiService,
     CATEGORIES,
     POST, POSTS
-} from './../../../../firebase-backend/firebase-backend.module';
+} from './../../../firebase-backend/firebase-backend.module';
 
 import { PostEditModal } from './../post-edit/post-edit-modal';
 

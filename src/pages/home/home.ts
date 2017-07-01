@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { UserService } from './../../../firebase-backend/firebase-backend.module';
+import { UserService } from './../../firebase-backend/firebase-backend.module';
 import {} from 'jquery';
 import {} from 'cordova-plugin-device';
 @Component({
