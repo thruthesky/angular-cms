@@ -18,7 +18,7 @@ export class AppService {
     kakao;
     constructor(
         private angularFireAuth: AngularFireAuth,
-        private db: AngularFireDatabase,
+        public db: AngularFireDatabase,
         public user: UserService
     ) {
         console.log("AppService::constructor()");
@@ -132,6 +132,12 @@ export class AppService {
 
 
 
+    /**
+     * This method is invoked on every login including Firebase supported login like facebook, google and all 3rd party social login like kakao, naver.
+     * 
+     * @param user social profile information to update `/user/profile`
+     * @param callback 
+     */
     updateProfile(user: SOCIAL_PROFILE, callback) {
         console.log("updateUserProfile()");
         // this.app.getSeceretKey(user, secret => {

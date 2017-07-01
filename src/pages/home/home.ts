@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { UserService } from './../../firebase-backend/firebase-backend.module';
+// import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+// import { UserService } from './../../firebase-backend/firebase-backend.module';
+import { AppService } from './../../providers/app.service';
 import {} from 'jquery';
 import {} from 'cordova-plugin-device';
 @Component({
@@ -13,8 +14,7 @@ export class HomePage implements OnInit {
   device = {};
 
   constructor(
-    db: AngularFireDatabase,
-    public user: UserService
+    public app: AppService
   ) {
     
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);

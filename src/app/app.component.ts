@@ -26,7 +26,13 @@ export class AppComponent {
     // }, e => console.error(e));
 
 
+
+
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
+
+
+
+
   }
 
   onDeviceReady() {

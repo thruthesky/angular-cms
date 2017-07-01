@@ -23,7 +23,7 @@ import { CustomErrorHandler } from './app.error-handler';
 import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 import { ForumPageModule } from '../pages/forum/forum-page.module';
@@ -35,7 +35,7 @@ import { AppService } from '../providers/app.service';
 
 
 const appRoutes: Routes = [
-  { path: 'register', component: RegisterPage },
+  { path: 'profile', component: ProfilePage },
   { path: 'login', component: LoginPage },
   { path: '', component: HomePage, pathMatch: 'full' },
   { path: '**', component: HomePage }
@@ -46,7 +46,7 @@ const appRoutes: Routes = [
     AppComponent,
     HomePage,
     LoginPage,
-    RegisterPage,
+    ProfilePage,
     AlertModal
   ],
   imports: [

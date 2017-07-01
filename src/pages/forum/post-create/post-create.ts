@@ -82,7 +82,7 @@ export class PostCreateComponent implements OnInit {
         console.log("Going to create a post : ", form);
 
         form.uid = this.user.uid;
-        form.name = this.user.name;
+        form.name = this.user.profile.name;
 
         form.secret = this.user.secretKey;
 

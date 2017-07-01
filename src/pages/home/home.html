@@ -8,14 +8,15 @@
 <button class="btn btn-primary" routerLink="/register">Go to register page</button>
 <button class="btn btn-primary" routerLink="/forum">Go to forum page</button>
 <button class="btn btn-primary" routerLink="/login">Go to login page</button>
-
+<button class="btn btn-primary" routerLink="/profile">Go to profile page</button>
+<button (click)=" app.user.logout() ">Loggout</button>
 </div>
 
   <i class="fa fa-gears"  aria-hidden="true"></i>
   
 
 <div>
-  Welcome, {{ user.name }} ( {{ user.uid }})
+  Welcome, {{ app.user.profile?.name }} ( {{ app.user.uid }})
 </div>
 
 <div>

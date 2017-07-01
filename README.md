@@ -18,7 +18,7 @@ $ ng serve
 
 
 
-# CODE DESIGN
+# CODE DESIGN - STYLE GUIDE
 
 * This project does not use `Lazy Loading`
     * So, developers need careful on reducing the javascript source file size.
@@ -39,6 +39,25 @@ $ ng serve
         `AppSerivce` must not import `HomePage` component because `HomePage` compoent will import `AppService`.
         It is all the same to any service class.
 
+    * Use `app.service` to refer firebase-backend as much as you can like below;
+
+````
+class XXXX {
+  profile;
+  constructor(
+    app: AppService
+  ) {
+    this.profile = app.user.getProfile();
+    app.db.ref.child('user');
+    app.root.child('user');
+  }
+}
+````
+
+        So, you do not need to import firebsae backend.
+
+
+
 
 * Put ID of all element. ex) '#register-form-id', '#update-form-id'
 
@@ -49,6 +68,37 @@ $ ng serve
     * `success` event for success of its role.
         For instance, `success` event for `post-create-compoent` when it successfully created a post.
     * `error` event for error of its role.
+
+
+* Forms
+
+    * Don't delcare object in class property to bind form. it will cause extra work.
+    * Instead, use variable property.
+For instance) class
+````
+class ProfilePage {
+  profile;
+  gender;
+  birthday;
+  phone;
+  onSubmitProfile() {
+    let data = {};
+    data['gender'] = this.gender;
+    data['birthday'] = this.birthday;
+    data['phone'] = this.phone;
+    this.app.user.updateProfile( data, () => {
+      this.app.user.getProfile( profile => console.log(profile) );
+    }, e => console.error(e) )
+  }
+}
+````
+For instance) template
+````
+<input type="radio" name="gender" value="M" [(ngModel)]=" gender "> Male
+<input type="radio" name="gender" value="F" [(ngModel)]=" gender "> Female
+<input name="birthday" [(ngModel)]=" birthday ">
+<input name="phone" [(ngModel)]=" phone ">
+````
 
 
 

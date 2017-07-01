@@ -82,7 +82,7 @@ export class PostEditModalContent implements AfterViewInit {
         console.log("Going to create a post : ", form);
 
         form.uid = this.user.uid;
-        form.name = this.user.name;
+        form.name = this.user.profile.name;
         form.key = this.post.key;
         form.secret = this.user.secretKey;
 
