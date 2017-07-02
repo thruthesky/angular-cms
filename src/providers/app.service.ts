@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-
+export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
 
@@ -72,12 +72,12 @@ export class AppService {
      * @note This will be called only one time after naver login.
      */
     checkLoginWithNaver() {
-        
+
         let naver_id_login = this.getNaverLoginObject();
 
         console.log("checkLoginWithNaver()", naver_id_login.oauthParams);
 
-        if ( ! naver_id_login.oauthParams ) return;
+        if (!naver_id_login.oauthParams) return;
 
         let naver_access_token = naver_id_login.oauthParams.access_token;
 
@@ -96,10 +96,10 @@ export class AppService {
                     name: nickname,
                     uid: id,
                     email: id + '@naver.com',
-                    password: 'N.c+,~'+email,
+                    password: 'N.c+,~' + email,
                     photoURL: profile_image
                 };
-                this.thirdPartySocialLoginSuccessHandler( user, () => {
+                this.thirdPartySocialLoginSuccessHandler(user, () => {
                     /**
                      * After Naver login, resize IE window with full with. The code below works only on IE. it's not working on Chrome, Firefox.
                      */
@@ -127,7 +127,7 @@ export class AppService {
      */
     thirdPartySocialLoginSuccessHandler(user: SOCIAL_PROFILE, callback) {
         console.log("thirdPartySocialLoginSuccessHandler()", user);
-        this.emailLogin(user, () => this.updateProfile(user, callback), () => this.emailRegister(user, callback));
+        this.emailLogin(user, () => this.loggedIn(user, callback), () => this.emailRegister(user, callback));
     }
 
 
@@ -135,22 +135,29 @@ export class AppService {
     /**
      * This method is invoked on every login including Firebase supported login like facebook, google and all 3rd party social login like kakao, naver.
      * 
-     * @param user social profile information to update `/user/profile`
+     * @warning This method maybe invoked before onAuthStateChanged(). So, it makes sure if the user has logged in.
+     * @param user User data from social login which will be updated to `/user/profile`
      * @param callback 
      */
-    updateProfile(user: SOCIAL_PROFILE, callback) {
+    loggedIn(user: SOCIAL_PROFILE, callback) {
         console.log("updateUserProfile()");
-        // this.app.getSeceretKey(user, secret => {
-        //     console.log('secret: ', secret);
-        // });
-        this.user.updateProfile( user, callback );
+        this.user.auth.onAuthStateChanged((fUser: firebase.User) => {
+            console.log("AppService::loggedIn() => onAuthStateChanged()");
+            if (fUser) { // user logged in.
+                this.user.updateProfile(user).then(callback).catch(e => console.error(e));
+            }
+            else {
+
+            }
+        });
     }
+
 
     emailLogin(user: SOCIAL_PROFILE, success, error) {
         console.log("emailLogin()");
 
-        this.user.login( user.email, user.password )
-        // firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+        this.user.login(user.email, user.password)
+            // firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(success)
             .catch(error);
     }
@@ -159,7 +166,7 @@ export class AppService {
         console.log("emailRegister()");
         // firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         this.user.register(user.email, user.password)
-            .then(() => this.updateProfile(user, callback)) /// user created, so update profile.
+            .then(() => this.loggedIn(user, callback)) /// user created, so update profile.
             .catch(e => {                                          /// if fail on user create, then, login and update profile.
                 console.log("Caught in emailRegister. error code:", e['code']);
                 //if ( e['code'] == 'auth/email-already-in-use' ) {
@@ -169,6 +176,8 @@ export class AppService {
             });
 
     }
+
+
 
 
 

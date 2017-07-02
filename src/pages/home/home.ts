@@ -12,11 +12,12 @@ export class HomePage implements OnInit {
 
 
   device = {};
+  profile;
 
   constructor(
     public app: AppService
   ) {
-    
+    app.user.getProfile( p => this.profile = p, (e) => console.log(e.message));
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
   }
 

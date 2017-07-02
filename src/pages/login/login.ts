@@ -19,10 +19,12 @@ import { AppService } from './../../providers/app.service';
   styleUrls: ['./login.scss']
 })
 export class LoginPage implements OnInit, AfterViewInit {
+  profile;
   constructor(
     public app: AppService,
     public user: UserService
   ) {
+    user.getProfile(profile => this.profile = profile, e => console.log(e.message));
   }
 
   ngOnInit() {
@@ -48,7 +50,7 @@ export class LoginPage implements OnInit, AfterViewInit {
           email: user.email,
           photoURL: user.photoURL
         };
-        this.app.updateProfile( profile, () => console.log('onClickLoginWithGoogle() finished.') );
+        this.app.loggedIn( profile, () => console.log('onClickLoginWithGoogle() finished.') );
       })
       .catch(e => {
         console.log('error: ', e);
@@ -73,7 +75,7 @@ export class LoginPage implements OnInit, AfterViewInit {
           photoURL: user.photoURL
         };
         
-        this.app.updateProfile( profile, () => console.log('onClickLoginWithFacebook() finished.') );
+        this.app.loggedIn( profile, () => console.log('onClickLoginWithFacebook() finished.') );
       })
       .catch(e => {
         console.log('error: ', e);

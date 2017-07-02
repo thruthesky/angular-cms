@@ -15,8 +15,8 @@
   <i class="fa fa-gears"  aria-hidden="true"></i>
   
 
-<div>
-  Welcome, {{ app.user.profile?.name }} ( {{ app.user.uid }})
+<div *ngIf=" app.user.isLogin && profile ">
+  Welcome, {{ profile.name }} ( {{ app.user.uid }})
 </div>
 
 <div>
