@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
@@ -15,7 +15,8 @@ export class AppService {
     root: firebase.database.Reference;
     kakao;
     constructor(
-        public user: UserService
+        public user: UserService,
+        private ngZone: NgZone
     ) {
         console.log("AppService::constructor()");
         this.auth = firebase.auth();
@@ -175,6 +176,9 @@ export class AppService {
 
 
 
+    render() {
+        this.ngZone.run(() => { });
+    }
 
 
 

@@ -17,13 +17,18 @@ $ git submodule foreach git checkout master
 $ ng serve
 $ cordova platform add browser
 $ abc run browser
-$ cd src/firebsae-backend/functions
-$ npm install --verbose
 
 
 
+## Firebase Backend
 
-# CODE DESIGN - STYLE GUIDE
+
+Do not install firebase-backend node_modules under parent project. This will produce errors.
+Do not compile firebase-backend under parent project. This will produce errors.
+
+
+
+# CODING GUIDELINE - STYLE GUIDE
 
 * This project does not use `Lazy Loading`
     * So, developers need careful on reducing the javascript source file size.
@@ -105,6 +110,18 @@ For instance) template
 <input name="phone" [(ngModel)]=" phone ">
 ````
 
+
+## Zone update.
+
+* When app boots,
+    When the app loads, the user login status is pending and app needs time to check user 'Auth'.
+    When the app checked 'Auth', and the internal state has been changed already,
+    But the change was not updated to UI because there is no user action.
+
+    * If you click a button or link, or move to another page, then the change will be updated to UI immediately.
+
+    * You may need to use `ngZone.run()` to update the UI immediately after getting the user profile using `UserService.getProfile()`
+    Or just simply wait sometime for the UI updated.
 
 
 # Plan

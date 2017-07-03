@@ -12,11 +12,15 @@
 <button (click)=" app.user.logout() ">Loggout</button>
 </div>
 
-  <i class="fa fa-gears"  aria-hidden="true"></i>
-  
+<button (click)="onClickButton()">click</button>
 
-<div *ngIf=" app.user.isLogin && profile ">
-  Welcome, {{ profile.name }} ( {{ app.user.uid }})
+  <i class="fa fa-gears"  aria-hidden="true"></i>
+login satus; {{ app.user.loginStatus | json }}
+login: {{ app.user.isLogin | json }}<br>
+user: {{ app.user.auth.currentUser | json }}
+<hr>
+<div *ngIf=" profile ">
+  Welcome, {{ profile.name }} ( {{ profile.photoURL }})
 </div>
 
 <div>
