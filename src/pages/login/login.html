@@ -12,7 +12,7 @@
 </div>
 
 
-
+{{ profile | json }}
 <div *ngIf=" user.isLogin && profile ">
   You are logged in as <b>{{ profile.name }}</b>
   <button (click)=" user.logout() ">Loggout</button>

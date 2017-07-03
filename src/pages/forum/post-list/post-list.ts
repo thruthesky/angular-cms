@@ -15,11 +15,14 @@ import { PostEditModal } from './../post-edit/post-edit-modal';
     templateUrl: 'post-list.html'
 })
 
-export class PostListComponent implements OnInit, AfterViewInit{
+export class PostListComponent implements OnInit, AfterViewInit {
 
     // post list
     posts: POSTS = [];
 
+
+    // watch
+    watchCount = 0;
 
     constructor(
         public forum: ForumService,
@@ -33,32 +36,49 @@ export class PostListComponent implements OnInit, AfterViewInit{
             //         .click(),
             //         1000);
         });
+
+
+        this.watchNewPost();
     }
 
     ngOnInit() { }
     ngAfterViewInit() {
-        
+
     }
 
-    loadPosts( callback ) {
+    loadPosts(callback) {
         this.posts = [];
         this.forum.postData().once('value').then(s => {
             let obj = s.val();
-            for (let k of Object.keys(obj)) {
-                this.posts.unshift( this.forum.sanitizePost( obj[k] ) );
-            }
+            for (let k of Object.keys(obj)) this.addPostOnTop(obj[k]);
             callback();
         });
     }
 
+    watchNewPost() {
+        this.forum.postData().orderByKey().limitToLast(1).on('child_added', snap => {
+            if (this.watchCount++ == 0) return;
+            let post = snap.val();
+            this.addPostOnTop( post );
+        });
+    }
 
-    onClickPostEdit( post: POST ) {
-        this.edit.open( {
+    /**
+     * Adds a post on top of the fourm.
+     * @param post Post
+     */
+    addPostOnTop(post: POST) {
+        this.posts.unshift(this.forum.sanitizePost(post));
+    }
+
+
+    onClickPostEdit(post: POST) {
+        this.edit.open({
             post: post,
             success: key => console.log(`post edit success: ${key}`),
             cancel: key => console.log(`post edit cancel: ${key}`),
             error: e => console.error(e)
-        } );
+        });
     }
 
 }

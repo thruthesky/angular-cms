@@ -24,6 +24,7 @@ export class LoginPage implements OnInit, AfterViewInit {
     public app: AppService,
     public user: UserService
   ) {
+    
     user.getProfile(profile => this.profile = profile, e => console.log(e.message));
   }
 

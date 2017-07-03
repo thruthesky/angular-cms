@@ -30,7 +30,7 @@ export class CategoriesComponent implements OnInit {
         private api: ApiService
     ) {
         this.initCategoryForm();
-        this.runReactiveCategoryUpdate();
+        this.loadCategory();
     }
 
     ngOnInit() { }
@@ -46,20 +46,22 @@ export class CategoriesComponent implements OnInit {
         console.log(this.categoryFormGroup.value);
 
         this.forum.createCategory(this.categoryFormGroup.value)
-            .then(id => console.log("Category Create Success: ", id))
+            .then(id => {
+                console.log("Category Create Success: ", id);
+                this.reloadCategory();
+            })
             .catch(e => console.log(e));
-
     }
 
 
+    loadCategory() {
+        this.forum.getCategories()
+            .then( categories => this.categories = categories )
+            .catch( e => console.error(e) );
+    }
 
-    runReactiveCategoryUpdate() {
-        this.forum.observeCategory().subscribe(res => {
-            console.log(res);
-            this.categories = res;
-            // this.postFormGroup.get('categories').setValue( this.categories );
-            // console.log( this.postFormGroup.value );
-        });
+    reloadCategory() {
+        this.loadCategory();
     }
 
 
@@ -70,20 +72,19 @@ export class CategoriesComponent implements OnInit {
 
         let category = { id: c.id, name: c['name'], description: c['description'] };
         this.forum.editCategory(category)
-            .then(category_id => { })
+            .then(category_id => {
+                this.reloadCategory();
+            })
             .catch(e => this.categoryError = e.message);
     }
-
-
 
     onClickCategoryDelete(id) {
 
         this.forum.deleteCategory(id)
-            .then(() => { })
+            .then(() => {
+                this.reloadCategory();
+            })
             .catch(e => this.categoryError = e.message);
-
-        // this.forum.deleteCategory( id, () => console.log("Category deleted"), e => console.error(e) );
-
     }
 
 

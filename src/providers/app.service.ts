@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
@@ -17,13 +15,11 @@ export class AppService {
     root: firebase.database.Reference;
     kakao;
     constructor(
-        private angularFireAuth: AngularFireAuth,
-        public db: AngularFireDatabase,
         public user: UserService
     ) {
         console.log("AppService::constructor()");
-        this.auth = angularFireAuth.auth;
-        this.root = db.database.ref('/');
+        this.auth = firebase.auth();
+        this.root = firebase.database().ref('/');
         this.initAuth();
         this.initKakao();
         this.checkLoginWithNaver();

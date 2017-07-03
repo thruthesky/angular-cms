@@ -1,5 +1,4 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     UserService,
     ForumService,
@@ -17,17 +16,19 @@ import {
 export class PostCreateComponent implements OnInit {
 
 
-    // post create form
-    postFormGroup: FormGroup;
+    // post create form names
+    subject: string;
+    content: string;
+    categories = {};
+    dbCategories: CATEGORIES
+    
+
     postError: string = '';
 
-
-    categories: CATEGORIES = [];
 
     @Output() success: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(
-        private fb: FormBuilder,
         public user: UserService,
         private api: ApiService,
         private forum: ForumService
@@ -45,56 +46,46 @@ export class PostCreateComponent implements OnInit {
 
         this.getCategories();
 
-        this.postFormGroup = this.fb.group({
-            subject: [],
-            content: [],
-            categories: [[]]
-        });
     }
-    
+
 
     getCategories() {
-        this.forum.observeCategory().subscribe(res => {
-            console.log(res);
-            this.categories = res;
-        });
-    }
-
-
-
-    onChangePostFormCategory($event) {
-        let checked = $event.target.checked;
-        let value = $event.target.value;
-        let categoryArray = this.postFormGroup.get('categories').value;
-        if (checked) { // add
-            categoryArray.push(value);
-        }
-        else { // remove
-            categoryArray = categoryArray.filter(v => v !== value)
-        }
-        this.postFormGroup.get('categories').setValue(categoryArray);
-        console.log(this.postFormGroup.value);
+        this.forum.getCategories()
+            .then(categories => this.dbCategories = categories)
+            .catch(e => console.error(e));
     }
 
 
     onSubmitPostForm() {
-        let form = <POST> this.postFormGroup.value;
-        console.log("Going to create a post : ", form);
+        let post: POST = {
+            uid: this.user.uid,
+            secret: this.user.secretKey,
+            name: this.user.profile.name,
+            categories: this.getFormCategories(),
+            subject: this.subject,
+            content: this.content
+        };
+        console.log(this.categories);
+        console.log("Going to create a post : ", post);
 
-        form.uid = this.user.uid;
-        form.name = this.user.profile.name;
-
-        form.secret = this.user.secretKey;
-
-        this.api.post(form).subscribe(key => {
+        this.api.post(post).subscribe(key => {
             console.log("Post create with key: ", key);
-            this.success.emit( <string><any>key );
+            this.success.emit(<string><any>key);
         }, e => {
             console.error(e);
             // console.log(e);
             // console.log(e.message);
         });
 
+    }
+
+    getFormCategories(): Array<string> {
+        let re = [];
+        if ( ! this.categories ) return re;
+        for ( let c of Object.keys(this.categories) ) {
+            if ( this.categories[c] ) re.push( c );
+        }
+        return re;
     }
 
 

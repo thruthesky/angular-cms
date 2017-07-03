@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from '../providers/app.service';
 import { ApiService } from './../firebase-backend/firebase-backend.module';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { } from 'cordova-plugin-device';
 
 @Component({
@@ -10,7 +9,7 @@ import { } from 'cordova-plugin-device';
 })
 export class AppComponent {
   title = 'app';
-  constructor(app: AppService, api: ApiService, db: AngularFireDatabase) {
+  constructor(app: AppService, api: ApiService) {
     api.setBackendUrl('https://us-central1-sonub-e2b13.cloudfunctions.net/postApi');
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
   }

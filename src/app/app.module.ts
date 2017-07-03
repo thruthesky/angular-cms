@@ -7,9 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { RouterModule, Routes } from '@angular/router';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { environment } from '../environments/environment';
 
 import { FirebaseBackendModule } from './../firebase-backend/firebase-backend.module';
@@ -32,6 +30,9 @@ import { ForumPageModule } from '../pages/forum/forum-page.module';
 import { AlertModal } from '../modals/alert/alert';
 import { AppService } from '../providers/app.service';
 
+import * as firebase from 'firebase';
+
+firebase.initializeApp( environment.firebase );
 
 
 const appRoutes: Routes = [
@@ -54,9 +55,6 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     RouterModule.forRoot( appRoutes ),
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
     FirebaseBackendModule,
     BootstrapModule,
     ForumPageModule

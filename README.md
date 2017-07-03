@@ -15,6 +15,11 @@ $ npm install --verbose
 $ git submodule update --init
 $ git submodule foreach git checkout master
 $ ng serve
+$ cordova platform add browser
+$ abc run browser
+$ cd src/firebsae-backend/functions
+$ npm install --verbose
+
 
 
 
