@@ -113,10 +113,12 @@ For instance) template
 
 ## Zone update.
 
-* When app boots,
-    When the app loads, the user login status is pending and app needs time to check user 'Auth'.
-    When the app checked 'Auth', and the internal state has been changed already,
+* When the internal state changes like
+    * when app loads the user login status is pending and app needs time to check user 'Auth'.
+    When the app checked user 'Auth', and the internal state has been changed already,
     But the change was not updated to UI because there is no user action.
+
+    * When login, ngZone may need to be re-run.
 
     * If you click a button or link, or move to another page, then the change will be updated to UI immediately.
 

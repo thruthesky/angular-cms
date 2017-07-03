@@ -19,7 +19,8 @@ import { PostEditModalContent } from './post-edit/post-edit-modal-content';
 
 
 const appRoutes: Routes = [
-    { path: 'forum', component: ForumPage }
+    { path: 'forum', component: ForumPage },
+    { path: 'forum/:category', component: ForumPage }
 ];
 
 @NgModule({

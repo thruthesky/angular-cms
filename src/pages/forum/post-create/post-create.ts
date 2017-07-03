@@ -58,6 +58,7 @@ export class PostCreateComponent implements OnInit {
 
     onSubmitPostForm() {
         let post: POST = {
+            function: 'createPost',
             uid: this.user.uid,
             secret: this.user.secretKey,
             name: this.user.profile.name,
@@ -76,7 +77,6 @@ export class PostCreateComponent implements OnInit {
             // console.log(e);
             // console.log(e.message);
         });
-
     }
 
     getFormCategories(): Array<string> {

@@ -6,4 +6,11 @@
 <categories-component *ngIf=" showCategory "></categories-component>
 <post-create-component *ngIf=" showPostCreateForm "></post-create-component>
 
-<post-list-component></post-list-component>
+<hr>
+Select Category:
+<button routerLink="/forum/abc">ABC</button>
+<button routerLink="/forum/math">Math</button>
+<button routerLink="/forum/music">Music</button>
+<hr>
+
+<post-list-component #postListComponent [category]="category"></post-list-component>

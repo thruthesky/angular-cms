@@ -1,16 +1,17 @@
-
-<h2>Posts</h2>
-
-<div *ngFor="let post of posts; let i = index ">
-  <div class="subject">
-    {{ post.subject }}
-    <button id="post-edit-{{ post.key }}" (click)=" onClickPostEdit( post ) ">EDIT</button>
+<h2>
+  Posts</h2>
+<!--
+{{ postKeys | json }}
+<hr> {{ postData | json }}-->
+<div *ngFor="let k of postKeys; let i = index ">
+  <div *ngIf=" postData[k] ">
+    <div class="postData[k].subject">
+      {{ postData[k].subject }}
+      <button id="post-edit-{{ k }}" (click)=" onClickPostEdit( postData[k] ) ">EDIT</button>
+    </div>
+    <div>
+      <b>{{ postData[k].name }}</b> {{ postData[k].date }}
+    </div>
+    <div class="content" style="padding: 1em; background-color: #efefef;">{{ postData[k].content }}</div>
   </div>
-  <div>
-    <b>{{ post.name }}</b>
-    {{ post.date }}
-  </div>
-  <div class="content" style="padding: 1em; background-color: #efefef;">{{ post.content }}</div>
 </div>
-
-

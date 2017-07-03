@@ -12,15 +12,22 @@
 <button (click)=" app.user.logout() ">Loggout</button>
 </div>
 
-<button (click)="onClickButton()">click</button>
+<hr>
 
-  <i class="fa fa-gears"  aria-hidden="true"></i>
-login satus; {{ app.user.loginStatus | json }}
+<button routerLink="/forum/abc">Go to abc forum</button>
+<button routerLink="/forum/music">Go to music forum</button>
+
+
+<!--<button (click)="onClickButton()">click</button>-->
+
+  <!--<i class="fa fa-gears"  aria-hidden="true"></i>-->
+<!--login satus; {{ app.user.loginStatus | json }}
 login: {{ app.user.isLogin | json }}<br>
-user: {{ app.user.auth.currentUser | json }}
+user: {{ app.user.auth.currentUser | json }}-->
 <hr>
 <div *ngIf=" profile ">
-  Welcome, {{ profile.name }} ( {{ profile.photoURL }})
+  Welcome, {{ profile.name }} ( {{ profile.photoURL }})<br>
+  Am i admin? : {{ app.user.isAdmin }}
 </div>
 
 <div>

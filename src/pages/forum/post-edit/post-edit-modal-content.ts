@@ -81,6 +81,7 @@ export class PostEditModalContent implements AfterViewInit {
         let form = <POST> this.formGroup.value;
         console.log("Going to create a post : ", form);
 
+        form.function = 'editPost';
         form.uid = this.user.uid;
         form.name = this.user.profile.name;
         form.key = this.post.key;

@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
 
 import {
-    UserService,
+    UserService, ForumService,
     SOCIAL_PROFILE
 } from './../firebase-backend/firebase-backend.module';
 
@@ -16,11 +17,14 @@ export class AppService {
     kakao;
     constructor(
         public user: UserService,
-        private ngZone: NgZone
+        public forum: ForumService,
+        private ngZone: NgZone,
+        private router: Router
     ) {
         console.log("AppService::constructor()");
         this.auth = firebase.auth();
         this.root = firebase.database().ref('/');
+        forum.setRoot(this.root);
         this.initAuth();
         this.initKakao();
         this.checkLoginWithNaver();
@@ -141,7 +145,9 @@ export class AppService {
         this.user.auth.onAuthStateChanged((fUser: firebase.User) => {
             console.log("AppService::loggedIn() => onAuthStateChanged()");
             if (fUser) { // user logged in.
-                this.user.updateProfile(user).then(callback).catch(e => console.error(e));
+                this.user.updateProfile(user).then(() => {
+                    callback();
+                }).catch(e => console.error(e));
             }
             else {
 
@@ -181,5 +187,8 @@ export class AppService {
     }
 
 
+    go( path ) {
+        this.router.navigateByUrl( path );
+    }
 
 }

@@ -2,9 +2,8 @@
 
 
 
-
 <div id="naver_id_login"></div>
-<div *ngIf=" ! user.isLogin ">
+<div *ngIf=" ! app.user.isLogin ">
   <button (click)="onClickLoginWithGoogle()">Google Login</button>
   <button (click)="onClickLoginWithFacebook()">Facebook Login</button>
   <button (click)="onClickLoginWithKakao()">Kakao Login</button>
@@ -12,14 +11,13 @@
 </div>
 
 
-{{ profile | json }}
-<div *ngIf=" user.isLogin && profile ">
-  You are logged in as <b>{{ profile.name }}</b>
-  <button (click)=" user.logout() ">Loggout</button>
-  <div>UID : {{ user.uid }}</div>
-  <div>Am I admin? {{ user.isAdmin }}</div>
+<div *ngIf=" app.user.isLogin && app.user.profile ">
+  You are logged in as <b>{{ app.user.profile.name }}</b>
+  <button (click)=" app.user.logout() ">Loggout</button>
+  <div>UID : {{ app.user.uid }}</div>
+  <div>Am I admin? {{ app.user.isAdmin }}</div>
 </div>
-<div *ngIf=" user.isLogout ">
+<div *ngIf=" app.user.isLogout ">
   * You are not logged in !!
 </div>
 

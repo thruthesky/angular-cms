@@ -10,7 +10,7 @@ import { } from 'cordova-plugin-device';
 export class AppComponent {
   title = 'app';
   constructor(app: AppService, api: ApiService) {
-    api.setBackendUrl('https://us-central1-sonub-e2b13.cloudfunctions.net/postApi');
+    api.setBackendUrl('https://us-central1-sonub-e2b13.cloudfunctions.net/api');
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
   }
 
