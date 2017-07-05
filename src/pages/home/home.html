@@ -14,6 +14,10 @@
 
 <hr>
 
+<button (click)="onClickSonubWeb()">Open In-app-browser with https://sonub.com</button>
+
+
+
 <button routerLink="/forum/abc">Go to abc forum</button>
 <button routerLink="/forum/music">Go to music forum</button>
 
@@ -25,8 +29,8 @@
 login: {{ app.user.isLogin | json }}<br>
 user: {{ app.user.auth.currentUser | json }}-->
 <hr>
-<div *ngIf=" profile ">
-  Welcome, {{ profile.name }} ( {{ profile.photoURL }})<br>
+<div *ngIf=" app.user.profile ">
+  Welcome, {{ app.user.profile.name }} ( {{ app.user.profile.photoURL }})<br>
   Am i admin? : {{ app.user.isAdmin }}
 </div>
 

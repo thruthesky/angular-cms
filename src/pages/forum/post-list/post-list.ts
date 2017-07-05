@@ -38,12 +38,13 @@ export class PostListComponent implements OnInit, AfterViewInit {
     ) {
 
         this.watchNewPost();
+        this.watchUpdatePost();
     }
 
     ngOnInit() { }
     ngAfterViewInit() {
 
-        this.loadPosts( this.category, () => {
+        this.loadPosts(this.category, () => {
             // setTimeout(()=>
             //     (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
             //         .click(),
@@ -52,7 +53,13 @@ export class PostListComponent implements OnInit, AfterViewInit {
 
     }
 
-    loadPosts( category, callback?) {
+    /**
+     * This loads post data. It is also invoked by parent compoent.
+     * 
+     * @param category Category to load.
+     * @param callback 
+     */
+    loadPosts(category, callback?) {
         this.postKeys = [];
         this.postData = {};
         console.log("Going to load forum-category: ", category);
@@ -71,11 +78,26 @@ export class PostListComponent implements OnInit, AfterViewInit {
         // });
     }
 
+
+
+
+    /**
+     * If there is a new post, it adds on top.
+     */
     watchNewPost() {
         this.app.forum.postData().orderByKey().limitToLast(1).on('child_added', snap => {
             if (this.watchCount++ == 0) return;
             let post = snap.val();
-            this.addPostOnTop(snap.key, post);
+            if (post) this.addPostOnTop(snap.key, post);
+            else console.error('Got child_changed event. But post is empty.');
+        });
+    }
+    watchUpdatePost() {
+        this.app.forum.postData().on('child_changed', snap => {
+            let post = snap.val();
+            console.log(`child chagned:`, post);
+            if (post) this.updatePost(snap.key, post);
+            else console.error('Got child_changed event. But post is empty.');
         });
     }
 
@@ -93,6 +115,12 @@ export class PostListComponent implements OnInit, AfterViewInit {
         }
 
         // this.posts.unshift(this.app.forum.sanitizePost(post));
+    }
+    updatePost(key, post) {
+        if (this.postData[key]) {
+            this.postData[key] = post;
+        }
+        else console.error('UpdatePost:: But postData key not exists in container.');
     }
 
 

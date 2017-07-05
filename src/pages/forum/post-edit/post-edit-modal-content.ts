@@ -19,6 +19,8 @@ export class PostEditModalContent implements AfterViewInit {
   formGroup: FormGroup;
 
   categories: CATEGORIES = [];
+
+  error: string;
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -93,6 +95,7 @@ export class PostEditModalContent implements AfterViewInit {
             this.activeModal.close();
         }, e => {
             console.error(e);
+            this.error = e.code;
             // console.log(e);
             // console.log(e.message);
         });

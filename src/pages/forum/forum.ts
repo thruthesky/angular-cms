@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostListComponent } from './post-list/post-list';
-
+import { ALL_CATEGORIES } from './../../firebase-backend/firebase-backend.module';
 
 
 
@@ -22,7 +22,7 @@ export class ForumPage implements OnInit, AfterViewInit {
 
 
     // forum category to list
-    category: string = 'all-categories';
+    category: string = ALL_CATEGORIES;
 
 
     //
@@ -30,14 +30,18 @@ export class ForumPage implements OnInit, AfterViewInit {
 
 
     /**
-     * To load post data dynamically.
+     * To check if the posts ( of a category ) has already loaded.
+     * This is needed due to the Template Availability. ( At very first load, when it got param['category'], the child component is not yet initialized. @ViewChild may not work. )
      * If it is first load, then PostListComponent will use '@Input category'.
      * If it is not first load, then, PostListComponent.loadPosts() will be called to load posts data dynmically.
      */
     isFirstLoad: boolean = true;
     constructor(private route: ActivatedRoute) {
         console.log("ForumPage::constructor()");
-        route.params
+        this.watchRouteChange();
+    }
+    watchRouteChange() {
+        this.route.params
             .subscribe(param => {
                 console.log(this.postListComponent);
                 if (param['category']) {
