@@ -4,14 +4,18 @@ export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
 
+import config from './../app/config';
+
+
 import {
     UserService, ForumService,
-    SOCIAL_PROFILE
+    SOCIAL_PROFILE, USER_REGISTER
 } from './../firebase-backend/firebase-backend.module';
 
 
 @Injectable()
 export class AppService {
+    config = config;
     auth: firebase.auth.Auth;
     root: firebase.database.Reference;
     kakao;
@@ -128,35 +132,50 @@ export class AppService {
      */
     thirdPartySocialLoginSuccessHandler(user: SOCIAL_PROFILE, callback) {
         console.log("thirdPartySocialLoginSuccessHandler()", user);
-        this.emailLogin(user, () => this.loggedIn(user, callback), () => this.emailRegister(user, callback));
+        this.socialFirebaseEmailLogin(user, () => this.socialLoggedIn(user, callback), () => this.socialFirebaseEmailRegister(user as any, callback));
     }
 
 
 
     /**
-     * This method is invoked on every login including Firebase supported login like facebook, google and all 3rd party social login like kakao, naver.
+     * This method is invoked on every social login including Firebase supported login like facebook, google and all 3rd party social login like kakao, naver.
      * 
-     * @warning This method maybe invoked before onAuthStateChanged(). So, it makes sure if the user has logged in.
+     * @warning user.loginUser must be set before this method.
+     * 
      * @param user User data from social login which will be updated to `/user/profile`
      * @param callback 
      */
-    loggedIn(user: SOCIAL_PROFILE, callback) {
+    socialLoggedIn(user: SOCIAL_PROFILE, callback) {
         console.log("updateUserProfile()");
-        this.user.auth.onAuthStateChanged((fUser: firebase.User) => {
-            console.log("AppService::loggedIn() => onAuthStateChanged()");
-            if (fUser) { // user logged in.
+        //this.user.auth.onAuthStateChanged((firebaseUser: firebase.User) => {
+            // this.user.setLoginUser( firebaseUser );
+            // console.log("AppService::loggedIn() => onAuthStateChanged()");
+            // if (fUser) { // user logged in.
                 this.user.updateProfile(user).then(() => {
-                    callback();
-                }).catch(e => console.error(e));
-            }
-            else {
+                    this.loggedIn( callback );
+                })
+                .catch(e => console.error(e));
+            // }
+            // else {
 
-            }
-        });
+            // }
+        //});
     }
 
 
-    emailLogin(user: SOCIAL_PROFILE, success, error) {
+    /**
+     * This method is being called on every login including social login and email/password login and any kinds of login.
+     * @param callback Callback
+     */
+    loggedIn( callback ) {
+        callback();
+    }
+
+
+
+
+
+    socialFirebaseEmailLogin(user: SOCIAL_PROFILE, success, error) {
         console.log("emailLogin()");
 
         this.user.login(user.email, user.password)
@@ -165,11 +184,11 @@ export class AppService {
             .catch(error);
     }
 
-    emailRegister(user: SOCIAL_PROFILE, callback) {
+    socialFirebaseEmailRegister(user: USER_REGISTER, callback) {
         console.log("emailRegister()");
         // firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-        this.user.register(user.email, user.password)
-            .then(() => this.loggedIn(user, callback)) /// user created, so update profile.
+        this.user.register(user)
+            .then(() => this.socialLoggedIn(user as any, callback)) /// user created, so update profile.
             .catch(e => {                                          /// if fail on user create, then, login and update profile.
                 console.log("Caught in emailRegister. error code:", e['code']);
                 //if ( e['code'] == 'auth/email-already-in-use' ) {

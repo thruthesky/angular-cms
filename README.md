@@ -68,6 +68,8 @@ class XXXX {
         So, you do not need to import firebsae backend.
 
 
+* try to avoid to use getProfile since it is using setTimeout.
+
 
 
 * Put ID of all element. ex) '#register-form-id', '#update-form-id'
@@ -111,6 +113,41 @@ For instance) template
 <input name="phone" [(ngModel)]=" phone ">
 ````
 
+## onAuthStatusChanged
+
+Due to the latency of handshake between `onAuthStateChanged()` and Firebase database, the code gets real complicated.
+
+For instance,
+
+After register,
+
+* The app must wait until the handshake between `onAuthStateChanged()` and Firebase database finishes to do many kinds of other works.
+
+* `signInWithEmailAndPassword()`, `signInWithPopup()` are all the same.
+
+* And this is why `getProfile()` with timeout exists as of 2017-07-05.
+
+* But now, loginUser is set right after user has auth, the user can do a lot of work before `onAuthStateChanged()`.
+
+
+
+
+
+Case example)
+    * a user just register with `createUserWithEmailAndPassword()`
+    * and registration success and got `uid`
+
+
+## loginUser
+
+It holds `login user's firebase User object`. Not profile data.
+
+
+* Case: If a user registers with `createUserWithEmailAndPassword()`, it holds user object that is returned from `createUserWithEmailAndPassword()`.
+    * and laster when `onAuthStateChanged()` is called, it will hold the user object that is returned from it.
+    * So, this may be different from `auth.currentUser`
+
+
 
 ## Zone update.
 
@@ -125,6 +162,20 @@ For instance) template
 
     * You may need to use `ngZone.run()` to update the UI immediately after getting the user profile using `UserService.getProfile()`
     Or just simply wait sometime for the UI updated.
+
+
+
+## Config
+
+Set all the configuration in ./app/config.ts
+
+
+
+## Test
+
+````
+TestService.run()
+````
 
 
 # Plan

@@ -44,7 +44,8 @@ export class LoginPage implements OnInit, AfterViewInit {
         console.log("success");
         console.log(res);
 
-        let user: firebase.User = res.user;
+        //let user: firebase.User = res.user;
+        let user = this.app.user.setLoginUser( res.user );
         let profile: SOCIAL_PROFILE = {
           providerId: user.providerId,
           name: user.displayName,
@@ -52,7 +53,7 @@ export class LoginPage implements OnInit, AfterViewInit {
           email: user.email,
           photoURL: user.photoURL
         };
-        this.app.loggedIn(profile, () => {
+        this.app.socialLoggedIn(profile, () => {
           console.log('onClickLoginWithGoogle() finished.');
           this.loggedIn();
         });
@@ -71,7 +72,8 @@ export class LoginPage implements OnInit, AfterViewInit {
       .then((res) => {
         console.log("facebook login success");
         console.log(res);
-        let user: firebase.User = res.user;
+        //let user: firebase.User = res.user;
+        let user = this.app.user.setLoginUser( res.user );
         let profile: SOCIAL_PROFILE = {
           providerId: user.providerId,
           name: user.displayName,
@@ -80,7 +82,7 @@ export class LoginPage implements OnInit, AfterViewInit {
           photoURL: user.photoURL
         };
 
-        this.app.loggedIn(profile, () => {
+        this.app.socialLoggedIn(profile, () => {
           console.log('onClickLoginWithFacebook() finished.');
           this.loggedIn();
         });

@@ -21,6 +21,7 @@ import { CustomErrorHandler } from './app.error-handler';
 import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 
 
@@ -36,6 +37,7 @@ firebase.initializeApp( environment.firebase );
 
 
 const appRoutes: Routes = [
+  { path: 'register', component: RegisterPage },
   { path: 'profile', component: ProfilePage },
   { path: 'login', component: LoginPage },
   { path: '', component: HomePage, pathMatch: 'full' },
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomePage,
+    RegisterPage,
     LoginPage,
     ProfilePage,
     AlertModal

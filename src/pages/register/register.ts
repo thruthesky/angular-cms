@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AppService, ERROR, isError } from './../../providers/app.service';
 @Component({
-  selector: 'profile-page',
-  templateUrl: './profile.html'
+  selector: 'register-page',
+  templateUrl: './register.html'
 })
-export class ProfilePage implements OnInit, AfterViewInit {
+export class RegisterPage implements OnInit, AfterViewInit {
 
   profile;
   gender;
@@ -15,21 +15,16 @@ export class ProfilePage implements OnInit, AfterViewInit {
   constructor(
     public app: AppService
   ) {
+      console.log( app.config );
+      
     this.initProfile();
   }
   initProfile() {
-    // this.app.user.checkLogin(uid => {
-    //   this.app.user.getProfile()
-    //     .then(profile => this.setProfile(profile))
-    //     .catch(e => console.error(e));
-    // });
 
     // this.app.user.getProfile(p => this.setProfile(p), e => {
     //   if ( isError(e.message, ERROR.user_not_logged_in ) )this.error = "You are not logged in";
     //   else this.error = e.message;
     // });
-
-    // if ( this.app.user)
   }
 
   setProfile(profile) {

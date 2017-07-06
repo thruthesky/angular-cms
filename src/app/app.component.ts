@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AppService } from '../providers/app.service';
-import { ApiService } from './../firebase-backend/firebase-backend.module';
+import {
+  ApiService
+  // , TestService
+} from './../firebase-backend/firebase-backend.module';
 import { } from 'cordova-plugin-device';
 
 @Component({
@@ -9,9 +12,14 @@ import { } from 'cordova-plugin-device';
 })
 export class AppComponent {
   title = 'app';
-  constructor(app: AppService, api: ApiService) {
+  constructor(
+    // test: TestService,
+    app: AppService,
+    api: ApiService
+  ) {
     api.setBackendUrl('https://us-central1-sonub-e2b13.cloudfunctions.net/api');
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
+    // test.run();
   }
 
   onDeviceReady() {

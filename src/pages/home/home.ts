@@ -1,4 +1,3 @@
-/// <reference types="cordova-plugin-inappbrowser"/>
 
 import { Component, OnInit } from '@angular/core';
 // import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -6,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from './../../providers/app.service';
 import {} from 'jquery';
 //import {} from 'cordova-plugin-device';
-declare let cordova;
+// declare let cordova;
 
 @Component({
   selector: 'app-home',
@@ -40,7 +39,5 @@ export class HomePage implements OnInit {
 
   }
 
-  onClickSonubWeb() {
-    cordova.InAppBrowser.open('https://www.sonub.com', '_blank', 'location=no');
-  }
+
 }
