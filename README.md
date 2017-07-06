@@ -9,6 +9,7 @@ For Angular Project.
 
 # Installation
 
+````
 $ git clone https://github.com/thruthesky/sonub
 $ cd sonub
 $ npm install --verbose
@@ -18,6 +19,7 @@ $ npm run setup                                 // to setup defaults like 'polyf
 $ ng serve
 $ cordova platform add browser
 $ abc run browser
+````
 
 
 
