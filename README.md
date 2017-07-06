@@ -204,6 +204,16 @@ TestService.run()
 
 
 
+## User login/registration
+
+
+* In mobile app with cordova, it not easy to let user loggin with naver and kakao.
+    So, we provide registration page ( Especially for Korean who only want to use naver or kakao. )
+
+
+
+
+
 
 
 # Resources
