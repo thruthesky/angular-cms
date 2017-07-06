@@ -140,13 +140,12 @@ Case example)
 
 ## loginUser
 
-It holds `login user's firebase User object`. Not profile data.
+@see firebase readme
 
 
-* Case: If a user registers with `createUserWithEmailAndPassword()`, it holds user object that is returned from `createUserWithEmailAndPassword()`.
-    * and laster when `onAuthStateChanged()` is called, it will hold the user object that is returned from it.
-    * So, this may be different from `auth.currentUser`
+## profile
 
+@see firebse readme
 
 
 ## Zone update.

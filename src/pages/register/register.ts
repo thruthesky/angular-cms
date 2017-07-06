@@ -1,37 +1,41 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AppService, ERROR, isError } from './../../providers/app.service';
+import { USER_REGISTER } from './../../firebase-backend/firebase-backend.module';
+
 @Component({
   selector: 'register-page',
   templateUrl: './register.html'
 })
 export class RegisterPage implements OnInit, AfterViewInit {
 
-  profile;
+
+
+  ///
+  email;
+  password;
+  name;
   gender;
   birthday;
-  phone;
+  mobile;
 
   error;
   constructor(
     public app: AppService
   ) {
-      console.log( app.config );
-      
-    this.initProfile();
-  }
-  initProfile() {
-
-    // this.app.user.getProfile(p => this.setProfile(p), e => {
-    //   if ( isError(e.message, ERROR.user_not_logged_in ) )this.error = "You are not logged in";
-    //   else this.error = e.message;
-    // });
+    console.log(app.config);
+    // this.setTestProfile();
+    // this.onSubmitRegisterForm();
   }
 
-  setProfile(profile) {
-    this.profile = profile;
-    if (profile['gender']) this.gender = profile.gender;
-    if (profile['birthday']) this.birthday = profile.birthday;
-    if (profile['phone']) this.phone = profile.phone;
+
+  setTestProfile() {
+    let str = this.app.user.randomString();
+    this.email = str + "@gmail.com";
+    this.password = str;
+    this.name = str;
+    this.gender = 'M';
+    this.birthday = "1994-05-06";
+    this.mobile = "09174670000";
   }
 
   ngOnInit() {
@@ -41,14 +45,26 @@ export class RegisterPage implements OnInit, AfterViewInit {
   }
 
 
-  onSubmitProfileForm() {
-    console.log("onSubmitProfileForm()");
-    let data = {};
-    data['gender'] = this.gender;
-    data['birthday'] = this.birthday;
-    data['phone'] = this.phone;
-    this.app.user.updateProfile(data)
-      .catch(e => console.error(e));
+  onSubmitRegisterForm() {
+    console.log("onSubmitRegisterForm()");
+    let data: USER_REGISTER = {
+      email: this.email,
+      password: this.password,
+      name: this.name,
+      gender: this.gender,
+      birthday: this.birthday,
+      mobile: this.mobile
+    }
+
+    this.app.user.register(data)
+      .then((uid: string) => {
+
+      })
+      .catch(e => this.app.alert(e));
+
+
+    // this.app.user.updateProfile(data)
+    //   .catch(e => console.error(e));
   }
 
 }

@@ -64,8 +64,21 @@ export class AppService {
 
 
 
-    alert(m) {
-        alert(m);
+    /**
+     * 
+     * @param a String or Error object.
+     */
+    warning( a ) {
+        let str = '';
+        if ( typeof a === 'string' ) str = a;
+        else {
+            if ( a['code'] ) str += a['code'] + ': ';
+            if ( a['message'] ) str += a['message'];
+        }
+        alert( str );
+    }
+    alert( a ) {
+        this.warning( a );
     }
 
 
@@ -165,10 +178,18 @@ export class AppService {
 
     /**
      * This method is being called on every login including social login and email/password login and any kinds of login.
+     * @note you can do something like
+     *      - counting login.
+     *      - recoring last login time, last login ip.
+     *      - and much more.
      * @param callback Callback
      */
     loggedIn( callback ) {
         callback();
+
+
+        ///
+        /// this.render(); /// re-rendering is not working here for updating user state change.
     }
 
 
@@ -206,7 +227,8 @@ export class AppService {
     }
 
 
-    go( path ) {
+    go( path, msg?: string ) {
+        if ( msg ) alert( msg );
         this.router.navigateByUrl( path );
     }
 

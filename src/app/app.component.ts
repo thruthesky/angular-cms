@@ -20,6 +20,9 @@ export class AppComponent {
     api.setBackendUrl('https://us-central1-sonub-e2b13.cloudfunctions.net/api');
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
     // test.run();
+
+
+    
   }
 
   onDeviceReady() {

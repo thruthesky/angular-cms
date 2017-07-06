@@ -27,7 +27,9 @@ login: {{ app.user.isLogin | json }}<br>
 user: {{ app.user.auth.currentUser | json }}-->
 <hr>
 <div *ngIf=" app.user.profile ">
-  Welcome, {{ app.user.profile.name }} ( {{ app.user.profile.photoURL }})<br>
+  Welcome, {{ app.user.profile.name }} ( {{ app.user.profile.email }})<br>
+  <img src="{{ app.user.profile.photoURL }}"><br>
+
   Am i admin? : {{ app.user.isAdmin }}
 </div>
 

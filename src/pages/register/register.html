@@ -6,17 +6,17 @@
 
 <div *ngIf="app.user.isLogin">
   <h2>You are already logged in</h2>
+  name: {{ app.user.profile.name }}<br>
+  email: {{ app.user.profile.email }}
 </div>
 
 
 <div *ngIf=" error ">{{ error }}</div>
 
-<section class="profile-content">
-  <div *ngIf=" profile ">
-    You have logged in with {{ profile?.providerId }}<br>
-    <img *ngIf=" profile && profile.photoURL " src="{{ profile.photoURL }}"> Name: {{ profile?.name }}
-  </div>
-  <hr>
+<section *ngIf=" app.user.isLogout " class="register-content">
+  
+  
+  
   <div class="container">
     <form>
 
@@ -24,19 +24,18 @@
 
 
       <div class="form-group row">
-        <label class="col-sm-4" for="profile-phone">Email</label>
+        <label class="col-sm-4" for="register-email">Email</label>
         <div class="col-sm-8">
-          <input id="profile-phone" class="form-control" type="email" name="phone" [(ngModel)]=" phone ">
+          <input id="register-email" class="form-control" type="email" name="email" [(ngModel)]=" email ">
           <small class="text-muted">Please input your email.</small>
         </div>
       </div>
 
 
-
       <div class="form-group row">
-        <label class="col-sm-4" for="profile-phone">Password</label>
+        <label class="col-sm-4" for="register-password">Password</label>
         <div class="col-sm-8">
-          <input id="profile-phone" class="form-control" type="password" name="phone" [(ngModel)]=" phone ">
+          <input id="register-password" class="form-control" type="password" name="password" [(ngModel)]=" password ">
           <small class="text-muted">Please input your password.</small>
         </div>
       </div>
@@ -44,9 +43,9 @@
 
 
       <div class="form-group row">
-        <label class="col-sm-4" for="profile-phone">Name</label>
+        <label class="col-sm-4" for="register-name">Name</label>
         <div class="col-sm-8">
-          <input id="profile-phone" class="form-control" type="text" name="name" [(ngModel)]=" phone ">
+          <input id="register-name" class="form-control" type="text" name="name" [(ngModel)]=" name ">
           <small class="text-muted">Please input your name.</small>
         </div>
       </div>
@@ -69,9 +68,9 @@
 
 
       <div class="form-group row">
-        <label class="col-sm-4" for="profile-birthday">Birthday</label>
+        <label class="col-sm-4" for="register-birthday">Birthday</label>
         <div class="col-sm-8">
-          <input id="profile-birthday" class="form-control" type="date" name="birthday" [(ngModel)]=" birthday ">
+          <input id="register-birthday" class="form-control" type="date" name="birthday" [(ngModel)]=" birthday ">
           <small class="text-muted">Please select your birthday.</small>
         </div>
       </div>
@@ -79,16 +78,16 @@
 
 
       <div class="form-group row">
-        <label class="col-sm-4" for="profile-phone">Phone Number</label>
+        <label class="col-sm-4" for="register-mobile">Mobile Number</label>
         <div class="col-sm-8">
-          <input id="profile-phone" class="form-control" type="tel" name="phone" [(ngModel)]=" phone ">
-          <small class="text-muted">Please input your phone number.</small>
+          <input id="register-mobile" class="form-control" type="tel" name="mobile" [(ngModel)]=" mobile ">
+          <small class="text-muted">Please input your mobile phone number.</small>
         </div>
       </div>
 
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-4">
-          <button type="button" (click)="onSubmitProfileForm()">Submit</button>
+          <button type="button" (click)="onSubmitRegisterForm()">Submit</button>
           <button type="button" routerLink="/">Cancel</button>
         </div>
       </div>

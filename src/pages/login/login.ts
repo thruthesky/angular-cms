@@ -18,7 +18,11 @@ import { AppService } from './../../providers/app.service';
   styleUrls: ['./login.scss']
 })
 export class LoginPage implements OnInit, AfterViewInit {
-  profile;
+  
+
+  email;
+  password;
+
   constructor(
     public app: AppService
     // public user: UserService
@@ -37,60 +41,57 @@ export class LoginPage implements OnInit, AfterViewInit {
     this.app.initNaver();
   }
 
-  onClickLoginWithGoogle() {
-
-    this.app.user.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((res) => {
-        console.log("success");
-        console.log(res);
-
-        //let user: firebase.User = res.user;
-        let user = this.app.user.setLoginUser( res.user );
-        let profile: SOCIAL_PROFILE = {
-          providerId: user.providerId,
-          name: user.displayName,
-          uid: user.uid,
-          email: user.email,
-          photoURL: user.photoURL
-        };
-        this.app.socialLoggedIn(profile, () => {
-          console.log('onClickLoginWithGoogle() finished.');
-          this.loggedIn();
-        });
-      })
-      .catch(e => {
-        console.log('error: ', e);
-        this.app.alert(e.message);
-      });
-
+  firebaseSocialLoginSuccess(user: firebase.User) {
+    this.app.user.setLoginUser(user);
+    let profile: SOCIAL_PROFILE = {
+      providerId: user.providerId,
+      name: user.displayName,
+      uid: user.uid,
+      email: user.email,
+      photoURL: user.photoURL
+    };
+    this.app.socialLoggedIn(profile, () => {
+      console.log('onClickLoginWithGoogle() finished.');
+      this.loggedIn();
+    });
   }
 
+  firebaseSocialLogniError(e) {
+    // Handle Errors here.
+    let code = e['code'];
+    let message = e['message'];
+    this.app.alert(`${code}: ${message}`);
+  }
+
+  onClickLoginWithGoogle() {
+    this.app.user.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((res) => this.firebaseSocialLoginSuccess(res.user))
+      .catch(e => this.firebaseSocialLogniError(e));
+  }
+  onClickLoginWithCordovaGoogle() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider).then(() => {
+      firebase.auth().getRedirectResult().then(result => {
+        this.firebaseSocialLoginSuccess(result.user);
+      })
+        .catch(e => this.firebaseSocialLogniError(e));
+    });
+  }
 
   onClickLoginWithFacebook() {
-
     this.app.user.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then((res) => {
-        console.log("facebook login success");
-        console.log(res);
-        //let user: firebase.User = res.user;
-        let user = this.app.user.setLoginUser( res.user );
-        let profile: SOCIAL_PROFILE = {
-          providerId: user.providerId,
-          name: user.displayName,
-          uid: user.uid,
-          email: user.email,
-          photoURL: user.photoURL
-        };
+      .then((res) => this.firebaseSocialLoginSuccess(res.user))
+      .catch(e => this.firebaseSocialLogniError(e));
+  }
 
-        this.app.socialLoggedIn(profile, () => {
-          console.log('onClickLoginWithFacebook() finished.');
-          this.loggedIn();
-        });
+  onClickLoginWithCordovaFacebook() {
+    let provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithRedirect(provider).then(() => {
+      firebase.auth().getRedirectResult().then(result => {
+        this.firebaseSocialLoginSuccess(result.user);
       })
-      .catch(e => {
-        console.log('error: ', e);
-        this.app.alert(e.message);
-      });
+        .catch(e => this.firebaseSocialLogniError(e));
+    });
   }
 
 
@@ -146,5 +147,12 @@ export class LoginPage implements OnInit, AfterViewInit {
     // this.app.go('/');
   }
 
+
+
+  onSubmitLogin() {
+    this.app.user.login( this.email, this.password )
+      .then(()=>this.app.loggedIn( () => this.loggedIn() ))
+      .catch(e => this.firebaseSocialLogniError(e));
+  }
 
 }
