@@ -4,6 +4,7 @@
 # cordova
 /plugins
 /platforms
+/ul_web_hooks
 
 
 # compiled output
