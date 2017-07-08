@@ -66,9 +66,10 @@ export class PostListComponent implements OnInit, AfterViewInit {
         this.app.forum.categoryPostRelation(category).once('value').then(s => {
             console.log("post-keys: ");
             console.log(s.val());
-            Object.keys(s.val()).map(key => this.addPostOnTop(key));
+            let postKeys = s.val();
+            if ( postKeys ) Object.keys(s.val()).map(key => this.addPostOnTop(key));
         })
-            .catch(e => console.error(e));
+        .catch(e => this.app.warning( e ));
 
 
         // this.app.forum.postData().once('value').then(s => {

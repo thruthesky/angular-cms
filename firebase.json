@@ -2,10 +2,8 @@
   "hosting": {
     "public": "www",
     "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+      { "source": "/p/**", "function": "postSeo" },
+      { "source": "**", "destination": "/index.html" }
     ]
   }
 }

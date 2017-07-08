@@ -17,6 +17,7 @@ $ git submodule update --init
 $ git submodule foreach git checkout master
 $ npm run setup                                 // to setup defaults like 'polyfills'
 $ ng serve
+$ npm install -g abcframework                   // https://github.com/thruthesky/abcframework
 $ cordova platform add browser
 $ abc run browser
 ````

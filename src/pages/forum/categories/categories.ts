@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import {
-    UserService,
-    ForumService,
     ApiService,
     CATEGORIES,
     POST, POSTS
 } from './../../../firebase-backend/firebase-backend.module';
 
 import { Alert } from './../../../providers/bootstrap/bootstrap-module';
-
+import { AppService } from './../../../providers/app.service';
 @Component({
     selector: 'categories-component',
     templateUrl: 'categories.html'
@@ -25,9 +23,10 @@ export class CategoriesComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        public user: UserService,
-        public forum: ForumService,
-        private api: ApiService
+        //public user: UserService,
+        //public forum: ForumService,
+        private api: ApiService,
+        public app: AppService
     ) {
         this.initCategoryForm();
         this.loadCategory();
@@ -45,17 +44,17 @@ export class CategoriesComponent implements OnInit {
     onCategoryFormSubmit() {
         console.log(this.categoryFormGroup.value);
 
-        this.forum.createCategory(this.categoryFormGroup.value)
+        this.app.forum.createCategory(this.categoryFormGroup.value)
             .then(id => {
                 console.log("Category Create Success: ", id);
                 this.reloadCategory();
             })
-            .catch(e => console.log(e));
+            .catch(e => this.app.warning(e) );
     }
 
 
     loadCategory() {
-        this.forum.getCategories()
+        this.app.forum.getCategories()
             .then( categories => this.categories = categories )
             .catch( e => console.error(e) );
     }
@@ -71,7 +70,7 @@ export class CategoriesComponent implements OnInit {
         console.log(c);
 
         let category = { id: c.id, name: c['name'], description: c['description'] };
-        this.forum.editCategory(category)
+        this.app.forum.editCategory(category)
             .then(category_id => {
                 this.reloadCategory();
             })
@@ -80,7 +79,7 @@ export class CategoriesComponent implements OnInit {
 
     onClickCategoryDelete(id) {
 
-        this.forum.deleteCategory(id)
+        this.app.forum.deleteCategory(id)
             .then(() => {
                 this.reloadCategory();
             })
