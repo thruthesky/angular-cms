@@ -25,6 +25,13 @@ export class PostCreateComponent implements OnInit {
     dbCategories: CATEGORIES
 
 
+    /// file
+    files: Array<string> = []; // urls.
+    percentage: number = 0;
+
+
+
+    /// error
     postError: string = '';
 
 
@@ -67,7 +74,8 @@ export class PostCreateComponent implements OnInit {
             name: this.app.user.profile.name,
             categories: this.getFormCategories(),
             subject: this.subject,
-            content: this.content
+            content: this.content,
+            files: this.files
         };
         console.log(this.categories);
         console.log("Going to create a post : ", post);
@@ -91,6 +99,38 @@ export class PostCreateComponent implements OnInit {
             if (this.categories[c]) re.push(c);
         }
         return re;
+    }
+
+    onChangeFile(event) {
+
+        if (event === void 0 || event.target === void 0 || event.target.files === void 0) {
+            console.log("No file was selected.");
+            return;
+        }
+        let files = event.target.files;
+        if (files === void 0 || files[0] == void 0 || !files[0]) {
+            console.log("No file was selected or file does not exists.");
+            return;
+        }
+        let file = files[0];
+
+        console.log(file);
+
+        let filename = this.app.getSafeStorageReferencePath(file.name);
+
+
+        this.app.upload(filename, file,
+            url => {
+                this.files.push( url );
+                console.log("File upload success: ", url);
+            },
+            e => console.error(e),
+            p => {
+                this.percentage = p;
+                console.log(`File is uploaded by: ${p} %`);
+            }
+        );
+
     }
 
 

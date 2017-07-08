@@ -12,6 +12,10 @@ import { environment } from '../environments/environment';
 
 import { FirebaseBackendModule } from './../firebase-backend/firebase-backend.module';
 
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 
 // global custom error handler. need help here.
@@ -59,6 +63,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot( appRoutes ),
     HttpModule,
     FirebaseBackendModule,
+    NgbModule.forRoot(),
     BootstrapModule,
     ForumPageModule
   ],

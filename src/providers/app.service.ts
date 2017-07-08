@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { ERROR } from './../firebase-backend/firebase-backend.module';
 export { ERROR, isError } from './../firebase-backend/firebase-backend.module';
 import * as firebase from 'firebase/app';
 
@@ -231,5 +232,55 @@ export class AppService {
         if ( msg ) alert( msg );
         this.router.navigateByUrl( path );
     }
+
+
+
+    ////////////////////////////////////
+    ///
+    ///     FILE UPLOAD
+    ///
+    ////////////////////////////////////
+
+
+
+    /**
+     * 
+     * @param filename file name
+     * @param data Upload file data. It can be 'File' object or 'Blob'.
+     * @param successCallback 
+     * @param failureCallback 
+     * @param progressCallback 
+     */
+    upload( filename, data, successCallback: (url: string) => void, failureCallback: (e:string) => void, progressCallback: (percent: number) => void) {
+        
+        if ( ! this.user.isLogin ) return failureCallback( ERROR.user_not_logged_in );
+
+        let root = firebase.storage().ref();
+        let uploadTask = root.child('upload')
+            .child(this.user.uid)
+            .child( this.forum.randomString() + '---' + filename )
+            .put(data);
+        uploadTask.then(snapshot => {
+            successCallback(snapshot.downloadURL);
+        })
+            .catch(e => failureCallback(e.message));
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
+            let percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            progressCallback(percent);
+        });
+    }
+
+
+
+    /**
+     * Returns safe string for storage reference.
+     * @see https://firebase.google.com/docs/storage/web/create-reference#limitations_on_references
+     * @param subject 
+     */
+    getSafeStorageReferencePath(subject) {
+        let ns = subject.replace(/#\[\]\*\?/g, '-');
+        return ns;
+    }
+
 
 }

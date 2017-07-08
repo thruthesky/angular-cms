@@ -12,6 +12,13 @@
     <div>
       <b>{{ postData[k].name }}</b> {{ postData[k].date }}
     </div>
+
+
+    <div>
+      <img *ngFor="let file of postData[k].files" src="{{ file }}">
+    </div>
+
+
     <div class="content" style="padding: 1em; background-color: #efefef;">{{ postData[k].content }}</div>
   </div>
 </div>

@@ -7,7 +7,22 @@
 </div>
     <div>Subject: <input name="subject" [(ngModel)]="subject"></div>
     <div><textarea name="content" [(ngModel)]="content" cols="40" rows="4" placeholder="Please input content"></textarea></div>
-    <div>File/Photo Upload: <input type="file"></div>
+
+    <div>
+      <img *ngFor="let file of files" src="{{ file }}">
+    </div>
+    <div>
+      File/Photo Upload:
+      <input type="file" name="inputFile"
+        #file
+        (change)="onChangeFile($event)">
+
+      <p><ngb-progressbar *ngIf=" percentage "
+        type="warning"
+        [value]="percentage"
+        [striped]="true"
+        [animated]="true"><i>{{ percentage }}%</i></ngb-progressbar></p>
+    </div>
     <div>
       Options:
       <!--<input type="checkbox" [(ngModel)]=" postForm.sticky_forum "> Sticky on selected forums.

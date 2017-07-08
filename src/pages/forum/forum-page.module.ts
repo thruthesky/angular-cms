@@ -8,6 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 import { ForumPage } from './forum';
 import { ForumIndexComponent } from './index/index';
 import { PostListComponent } from './post-list/post-list';
@@ -38,7 +42,8 @@ const appRoutes: Routes = [
     imports: [
         CommonModule,
         FormsModule, ReactiveFormsModule,
-        RouterModule.forChild(appRoutes)
+        RouterModule.forChild(appRoutes),
+        NgbModule.forRoot()
     ],
     providers: [ PostEditModal ],
 })
