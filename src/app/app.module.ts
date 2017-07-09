@@ -22,6 +22,10 @@ import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 import { CustomErrorHandler } from './app.error-handler';
 
 
+import { PageScroll } from './../providers/page-scroll';
+
+
+
 import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -69,7 +73,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppService,
-    { provide: ErrorHandler, useClass: CustomErrorHandler }
+    { provide: ErrorHandler, useClass: CustomErrorHandler },
+    PageScroll
   ],
   bootstrap: [AppComponent]
 })

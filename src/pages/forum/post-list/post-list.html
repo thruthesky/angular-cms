@@ -6,6 +6,8 @@
 <div *ngFor="let k of postKeys; let i = index ">
   <div *ngIf=" postData[k] ">
     <div class="postData[k].subject">
+
+      <hr *ngIf=" ! (i % pageSize) ">
       {{ postData[k].subject }}
       <button id="post-edit-{{ k }}" (click)=" onClickPostEdit( postData[k] ) ">EDIT</button>
     </div>
@@ -22,3 +24,5 @@
     <div class="content" style="padding: 1em; background-color: #efefef;">{{ postData[k].content }}</div>
   </div>
 </div>
+<div class="alert alert-info" *ngIf="inLoading">Loading ...</div>
+<div class="alert alert-warning" *ngIf="noMorePosts">No more posts</div>

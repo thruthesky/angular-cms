@@ -10,6 +10,9 @@ import {
 
 import { PostEditModal } from './../post-edit/post-edit-modal';
 
+import { PageScroll } from './../../../providers/page-scroll';
+
+
 
 @Component({
     selector: 'post-list-component',
@@ -27,6 +30,15 @@ export class PostListComponent implements OnInit, AfterViewInit {
     watchCount = 0;
 
 
+    // page scroll & pagination
+    watch;
+    pageSize: number = 10;
+    paginationKey = null;
+    inLoading: boolean = false;
+    noMorePosts: boolean = false;
+
+
+    //
     @Input() category: string;
 
     // category: string = 'all-categories';
@@ -34,17 +46,26 @@ export class PostListComponent implements OnInit, AfterViewInit {
         public app: AppService,
         private api: ApiService,
         public user: UserService,
-        private edit: PostEditModal
+        private edit: PostEditModal,
+        private pageScroll: PageScroll
     ) {
 
         this.watchNewPost();
         this.watchUpdatePost();
     }
 
-    ngOnInit() { }
+
+    ngOnInit() {
+        this.watch = this.pageScroll.watch('body', 350).subscribe(e => this.loadPage(this.category));
+    }
+
+    ngOnDestroy() {
+        this.watch.unsubscribe();
+    }
+
     ngAfterViewInit() {
 
-        this.loadPosts(this.category, () => {
+        this.loadPage(this.category, () => {
             // setTimeout(()=>
             //     (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
             //         .click(),
@@ -59,25 +80,36 @@ export class PostListComponent implements OnInit, AfterViewInit {
      * @param category Category to load.
      * @param callback 
      */
-    loadPosts(category, callback?) {
-        this.postKeys = [];
-        this.postData = {};
-        console.log("Going to load forum-category: ", category);
-        this.app.forum.categoryPostRelation(category).once('value').then(s => {
-            console.log("post-keys: ");
-            console.log(s.val());
-            let postKeys = s.val();
-            if ( postKeys ) Object.keys(s.val()).map(key => this.addPostOnTop(key));
-        })
-        .catch(e => this.app.warning( e ));
+    loadPage(category, callback?) {
+        console.log("loadPage: begin");
+        if (this.noMorePosts) { console.log("No more posts..."); return; }
+        if (this.inLoading) { console.log("In loading..."); return; }
+        else this.inLoading = true;
 
+        let o = {
+            ref: this.app.forum.categoryPostRelation(category),
+            key: this.paginationKey,
+            size: this.pageSize + 1,
+            keyOnly: true
+        };
 
-        // this.app.forum.postData().once('value').then(s => {
-        //     let obj = s.val();
-        //     for (let k of Object.keys(obj)) this.addPostOnTop(obj[k]);
-        //     callback();
-        // });
-    }
+        this.app.forum.page(o)
+            .then((posts: Array<string>) => {
+                this.inLoading = false;
+                let re = this.app.forum.pageHelper( o, posts );
+                //if ( ! posts || posts.length == 0 || posts.length < o.size) this.noMorePosts = true;
+                this.noMorePosts = re.noMorePosts;
+                this.paginationKey = re.paginationKey;
+                posts = re.posts;
+
+                console.log("page: ", posts);
+                posts.map(key => this.addPostAtBottom(key));
+                // this.paginationKey = posts[posts.length - 1];
+                console.log("paginationKey: ", this.paginationKey);
+            })
+            .catch(e => this.app.warning(e));
+    };
+
 
 
 
@@ -102,26 +134,43 @@ export class PostListComponent implements OnInit, AfterViewInit {
         });
     }
 
+
     /**
      * Adds a post on top of the fourm.
      * @param post Post
      */
     addPostOnTop(key: string, post?: POST) {
+        console.log(this.postKeys);
         this.postKeys.unshift(key);
+        console.log(this.postKeys);
+        this.updatePost(key, post);
+
+        // this.posts.unshift(this.app.forum.sanitizePost(post));
+    }
+    addPostAtBottom(key: string, post?: POST) {
+        this.postKeys.push(key);
+        this.updatePost(key, post);
         if (post) this.postData[key] = post;
         else {
             this.app.forum.postData(key).once('value').then(s => {
                 this.postData[key] = s.val();
             });
         }
-
-        // this.posts.unshift(this.app.forum.sanitizePost(post));
     }
+
+    /**
+     * If a post has updated/edited.
+     * @param key 
+     * @param post 
+     */
     updatePost(key, post) {
-        if (this.postData[key]) {
-            this.postData[key] = post;
+        if (post) this.postData[key] = post;
+        else if (key) {
+            this.app.forum.postData(key).once('value').then(s => {
+                this.postData[key] = s.val();
+            });
         }
-        else console.error('UpdatePost:: But postData key not exists in container.');
+        else console.error("updatePost() key and post are empty");
     }
 
 
