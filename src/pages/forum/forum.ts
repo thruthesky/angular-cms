@@ -46,7 +46,7 @@ export class ForumPage implements OnInit, AfterViewInit {
                 console.log(this.postListComponent);
                 if (param['category']) {
                     this.category = param['category'];
-                    if ( ! this.isFirstLoad ) this.postListComponent.loadPage( this.category );
+                    if ( ! this.isFirstLoad ) this.postListComponent.loadCategory( this.category );
                     this.isFirstLoad = false;
                 }
                 console.log("ForumPage::constructor(). inside subscription: category: ", this.category);

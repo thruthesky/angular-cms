@@ -1,0 +1,16 @@
+
+  <div *ngIf=" comments ">
+    <div *ngFor=" let comment of comments">
+      <div class="p-3" [attr.depth]="comment.depth" style="background-color: #e3f3e3">
+        {{ comment.content }}
+      </div>
+
+      <comment-reply-component
+        [path]=" comment.path "
+        (create) = "onCreate($event, comment) "
+      ></comment-reply-component>
+
+
+      <hr>
+    </div>
+  </div>

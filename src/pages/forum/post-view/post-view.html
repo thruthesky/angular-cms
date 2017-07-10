@@ -1,0 +1,27 @@
+<div class="post.subject">
+
+    <h1>{{ post.subject }}</h1>
+    <button id="post-edit-{{ post.key }}" (click)=" edit.emit( post ) ">EDIT</button>
+</div>
+<div>
+    <b>{{ post.name }}</b> {{ post.date }}
+</div>
+
+
+<div>
+    <img *ngFor="let file of post.files" src="{{ file }}">
+</div>
+
+
+<div class="content" style="padding: 1em; background-color: #efefef;">{{ post.content }}</div>
+
+
+Like <button type="button">Reply</button> More
+
+
+
+<comment-reply-component
+    [path]=" post.key "
+    (create)="onCreate( $event, post )"
+></comment-reply-component>
+

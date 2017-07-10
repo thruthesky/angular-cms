@@ -1,28 +1,19 @@
 <h2>
   Posts</h2>
+
+
 <!--
 {{ postKeys | json }}
 <hr> {{ postData | json }}-->
 <div *ngFor="let k of postKeys; let i = index ">
-  <div *ngIf=" postData[k] ">
-    <div class="postData[k].subject">
 
-      <hr *ngIf=" ! (i % pageSize) ">
-      {{ postData[k].subject }}
-      <button id="post-edit-{{ k }}" (click)=" onClickPostEdit( postData[k] ) ">EDIT</button>
-    </div>
-    <div>
-      <b>{{ postData[k].name }}</b> {{ postData[k].date }}
-    </div>
+  <hr *ngIf=" ! (i % pageSize) ">
+
+  <post-view-component *ngIf=" postData[k] " [post]=" postData[k] " (edit)=" onEditPost( $event ) "></post-view-component>
+  <comment-list-component [comments]="postData[k]['comments']"></comment-list-component>
 
 
-    <div>
-      <img *ngFor="let file of postData[k].files" src="{{ file }}">
-    </div>
 
-
-    <div class="content" style="padding: 1em; background-color: #efefef;">{{ postData[k].content }}</div>
-  </div>
 </div>
-<div class="alert alert-info" *ngIf="inLoading">Loading ...</div>
+<div class="alert alert-info" *ngIf="inLoading"> <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Loading ...</div>
 <div class="alert alert-warning" *ngIf="noMorePosts">No more posts</div>

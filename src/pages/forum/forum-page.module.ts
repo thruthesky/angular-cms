@@ -19,7 +19,9 @@ import { CategoriesComponent } from './categories/categories';
 import { PostCreateComponent } from './post-create/post-create';
 import { PostEditModal } from './post-edit/post-edit-modal';
 import { PostEditModalContent } from './post-edit/post-edit-modal-content';
-
+import { PostViewComponent } from './post-view/post-view';
+import { CommentReplyComponent } from './comment-reply/comment-reply';
+import { CommentListComponent } from './comment-list/comment-list';
 
 
 const appRoutes: Routes = [
@@ -34,7 +36,10 @@ const appRoutes: Routes = [
         PostListComponent,
         CategoriesComponent,
         PostCreateComponent,
-        PostEditModalContent
+        PostEditModalContent,
+        PostViewComponent,
+        CommentReplyComponent,
+        CommentListComponent
     ],
     entryComponents: [
         PostEditModalContent

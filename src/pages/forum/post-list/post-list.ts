@@ -25,23 +25,24 @@ export class PostListComponent implements OnInit, AfterViewInit {
     postKeys: Array<string> = [];
     postData: { [key: string]: POST } = {};
 
-
     // watch
     watchCount = 0;
-
 
     // page scroll & pagination
     watch;
     pageSize: number = 10;
-    paginationKey = null;
+    paginationKey: string = null;
     inLoading: boolean = false;
     noMorePosts: boolean = false;
+    
 
 
     //
     @Input() category: string;
 
     // category: string = 'all-categories';
+
+
     constructor(
         public app: AppService,
         private api: ApiService,
@@ -65,12 +66,40 @@ export class PostListComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.loadPage(this.category, () => {
-            // setTimeout(()=>
-            //     (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
-            //         .click(),
-            //         1000);
-        });
+
+        setTimeout(() => this.safeChangeDetection(), 1);
+
+
+    }
+
+    safeChangeDetection() {
+        this.loadPage(() => { });
+
+        // this.loadPage(this.category, () => {
+        //     // setTimeout(()=>
+        //     //     (<HTMLElement>document.querySelector('#post-edit--Knm0MYprASJFrT3Fi_6'))
+        //     //         .click(),
+        //     //         1000);
+        // });
+
+    }
+
+    loadCategory( category ) {
+        this.resetPage( category );
+        this.loadPage();
+    }
+
+    resetPage( category ) {
+        this.category = category;
+        this.paginationKey = null;
+        this.inLoading = false;
+        this.noMorePosts = false;
+
+        this.postKeys = [];
+        this.postData = {};
+
+        // watch
+        this.watchCount = 0;
 
     }
 
@@ -80,35 +109,31 @@ export class PostListComponent implements OnInit, AfterViewInit {
      * @param category Category to load.
      * @param callback 
      */
-    loadPage(category, callback?) {
+    loadPage(callback?) {
         console.log("loadPage: begin");
         if (this.noMorePosts) { console.log("No more posts..."); return; }
         if (this.inLoading) { console.log("In loading..."); return; }
         else this.inLoading = true;
 
         let o = {
-            ref: this.app.forum.categoryPostRelation(category),
+            ref: this.app.forum.categoryPostRelation(this.category),
             key: this.paginationKey,
             size: this.pageSize + 1,
             keyOnly: true
         };
 
         this.app.forum.page(o)
-            .then((posts: Array<string>) => {
-                this.inLoading = false;
-                let re = this.app.forum.pageHelper( o, posts );
-                //if ( ! posts || posts.length == 0 || posts.length < o.size) this.noMorePosts = true;
-                this.noMorePosts = re.noMorePosts;
-                this.paginationKey = re.paginationKey;
-                posts = re.posts;
-
-                console.log("page: ", posts);
-                posts.map(key => this.addPostAtBottom(key));
-                // this.paginationKey = posts[posts.length - 1];
-                console.log("paginationKey: ", this.paginationKey);
-            })
+            .then( x => this.renderPage( o, x ) )
             .catch(e => this.app.warning(e));
     };
+    renderPage(o, posts: Array<string>) {
+        this.inLoading = false;
+        let re = this.app.forum.pageHelper(o, posts);
+        this.noMorePosts = re.noMorePosts;
+        this.paginationKey = re.paginationKey;
+        posts = re.posts;
+        posts.map(key => this.addPostAtBottom(key));
+    }
 
 
 
@@ -144,8 +169,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
         this.postKeys.unshift(key);
         console.log(this.postKeys);
         this.updatePost(key, post);
-
-        // this.posts.unshift(this.app.forum.sanitizePost(post));
+        // this.getComments( key );
     }
     addPostAtBottom(key: string, post?: POST) {
         this.postKeys.push(key);
@@ -154,8 +178,23 @@ export class PostListComponent implements OnInit, AfterViewInit {
         else {
             this.app.forum.postData(key).once('value').then(s => {
                 this.postData[key] = s.val();
+                this.getComments(key);
             });
         }
+    }
+
+
+    /**
+     * Get comments and set them into this.postData[key]['comments']
+     * @param postKey post-key to get comments of.
+     */
+    getComments( postKey ) {
+        this.app.forum.getComments( postKey ).then( comments => {
+            if ( ! this.app.forum.isEmpty( comments ) ) {
+                this.postData[postKey]['comments'] = this.app.forum.commentsTreeToArray( comments );
+            }
+            else this.postData[postKey]['comments'] = [];
+        }, e => this.app.warning(e) );
     }
 
     /**
@@ -174,7 +213,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
     }
 
 
-    onClickPostEdit(post: POST) {
+    onEditPost(post: POST) {
         this.edit.open({
             post: post,
             success: key => console.log(`post edit success: ${key}`),
