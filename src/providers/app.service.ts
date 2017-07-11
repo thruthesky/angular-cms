@@ -14,6 +14,10 @@ import {
 } from './../firebase-backend/firebase-backend.module';
 
 
+
+import { LibraryService } from './library';
+
+
 @Injectable()
 export class AppService {
     config = config;
@@ -22,9 +26,10 @@ export class AppService {
     kakao;
     constructor(
         public user: UserService,
+        public lib: LibraryService,
         public forum: ForumService,
         private ngZone: NgZone,
-        private router: Router
+        private router: Router,
     ) {
         console.log("AppService::constructor()");
         this.auth = firebase.auth();

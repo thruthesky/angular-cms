@@ -22,6 +22,8 @@ import { PostEditModalContent } from './post-edit/post-edit-modal-content';
 import { PostViewComponent } from './post-view/post-view';
 import { CommentReplyComponent } from './comment-reply/comment-reply';
 import { CommentListComponent } from './comment-list/comment-list';
+import { CommentViewComponent } from './comment-view/comment-view';
+
 
 
 const appRoutes: Routes = [
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
         PostEditModalContent,
         PostViewComponent,
         CommentReplyComponent,
-        CommentListComponent
+        CommentListComponent,
+        CommentViewComponent
     ],
     entryComponents: [
         PostEditModalContent

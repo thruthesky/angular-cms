@@ -1,27 +1,33 @@
-<div class="post.subject">
 
-    <h1>{{ post.subject }}</h1>
+<div class="post-header">
+    <div class="d-flex justify-content-start">
+        <div class="user-profile-photo" *ngIf="post.user">
+            <div class="photo" *ngIf="post.user.photoURL">
+                <img src="{{post.user.photoURL}}">
+            </div>
+        </div>
+        <div class="align-self-center"><b>{{ post.name }}</b></div>
+        <div class="align-self-center ml-auto">{{ post.stamp | date:short | lowercase }}</div>
+    </div>
+</div>
+
+
+<div class="post.subject">
+    <h2>{{ post.subject }}</h2>
     <button id="post-edit-{{ post.key }}" (click)=" edit.emit( post ) ">EDIT</button>
 </div>
-<div>
-    <b>{{ post.name }}</b> {{ post.date }}
-</div>
+
 
 
 <div>
     <img *ngFor="let file of post.files" src="{{ file }}">
 </div>
 
-
 <div class="content" style="padding: 1em; background-color: #efefef;">{{ post.content }}</div>
 
 
 Like <button type="button">Reply</button> More
 
-
-
 <comment-reply-component
-    [path]=" post.key "
-    (create)="onCreate( $event, post )"
-></comment-reply-component>
-
+[post]="post"
+[path]=" post.key " (create)="onCreate( $event, post )"></comment-reply-component>

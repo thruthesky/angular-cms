@@ -5,7 +5,7 @@ import {
     ForumService,
     ApiService,
     CATEGORIES,
-    POST, POSTS
+    POST, POSTS, PROFILE
 } from './../../../firebase-backend/firebase-backend.module';
 
 import { PostEditModal } from './../post-edit/post-edit-modal';
@@ -34,7 +34,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
     paginationKey: string = null;
     inLoading: boolean = false;
     noMorePosts: boolean = false;
-    
+
 
 
     //
@@ -84,12 +84,12 @@ export class PostListComponent implements OnInit, AfterViewInit {
 
     }
 
-    loadCategory( category ) {
-        this.resetPage( category );
+    loadCategory(category) {
+        this.resetPage(category);
         this.loadPage();
     }
 
-    resetPage( category ) {
+    resetPage(category) {
         this.category = category;
         this.paginationKey = null;
         this.inLoading = false;
@@ -123,7 +123,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
         };
 
         this.app.forum.page(o)
-            .then( x => this.renderPage( o, x ) )
+            .then(x => this.renderPage(o, x))
             .catch(e => this.app.warning(e));
     };
     renderPage(o, posts: Array<string>) {
@@ -169,7 +169,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
         this.postKeys.unshift(key);
         console.log(this.postKeys);
         this.updatePost(key, post);
-        // this.getComments( key );
+        this.getPostExtraData(post, { comments: false });
     }
     addPostAtBottom(key: string, post?: POST) {
         this.postKeys.push(key);
@@ -177,24 +177,34 @@ export class PostListComponent implements OnInit, AfterViewInit {
         if (post) this.postData[key] = post;
         else {
             this.app.forum.postData(key).once('value').then(s => {
-                this.postData[key] = s.val();
-                this.getComments(key);
+                let post: POST = s.val();
+                this.postData[key] = post;
+                this.getPostExtraData(post);
             });
         }
     }
 
 
     /**
-     * Get comments and set them into this.postData[key]['comments']
-     * @param postKey post-key to get comments of.
+     * Gets post extra data like author information, comments
+     *  and set them into this.postData[key]['comments']
+     * @param post Post to get comments of.
      */
-    getComments( postKey ) {
-        this.app.forum.getComments( postKey ).then( comments => {
-            if ( ! this.app.forum.isEmpty( comments ) ) {
-                this.postData[postKey]['comments'] = this.app.forum.commentsTreeToArray( comments );
-            }
-            else this.postData[postKey]['comments'] = [];
-        }, e => this.app.warning(e) );
+    getPostExtraData(post: POST, o?: { comments: boolean }) {
+        o = Object.assign( { comments: true }, o );
+        this.app.user.getUserProfile( post.uid ).then( (user: PROFILE) => {
+            this.postData[post.key]['user'] = user;
+        });
+
+        /// get comments.
+        if (o && o.comments) {
+            this.app.forum.getComments(post.key).then(comments => {
+                if (!this.app.forum.isEmpty(comments)) {
+                    this.postData[post.key]['comments'] = this.app.forum.commentsTreeToArray(comments);
+                }
+                else this.postData[post.key]['comments'] = [];
+            }, e => this.app.warning(e));
+        }
     }
 
     /**

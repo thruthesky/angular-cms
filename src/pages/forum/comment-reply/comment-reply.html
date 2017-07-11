@@ -1,8 +1,10 @@
 <table>
     <tr>
         <td>
-            <div class="user-photo" style="border-radius: 50%; width: 32px; height: 32px; overflow: hidden">
-                <img src="https://file.philgo.com/data/upload/5/1701175">
+            <div class="user-profile-photo" *ngIf="app.user.isLogin">
+                <div class="photo" *ngIf="app.user.profile">
+                    <img src="{{app.user.profile.photoURL}}">
+                </div>
             </div>
         </td>
         <td>

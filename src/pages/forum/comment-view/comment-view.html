@@ -1,0 +1,29 @@
+<article [attr.depth]="comment.depth">
+
+
+
+
+
+    <table>
+        <tr valign="top">
+            <td width="1%">
+                <div class="user-profile-photo" *ngIf="comment.user">
+                    <div class="photo" *ngIf="comment.user.photoURL">
+                        <img src="{{comment.user.photoURL}}">
+                    </div>
+                </div>
+            </td>
+            <td width="99%">
+                <div *ngIf="comment.user" class="align-self-center"><b>{{ comment.user.name }}</b></div>
+                <div class="align-self-center ml-auto">{{ comment.stamp | date:short | lowercase }}</div>
+
+                <div class="p-3" style="background-color: #e3f3e3">
+                    {{ comment.content }}
+                </div>
+                Like <button type="button" (click)="showCommentForm=true">Reply</button> More
+            </td>
+        </tr>
+    </table>
+
+    <comment-reply-component *ngIf="showCommentForm" [comment]="comment" [path]=" comment.path " (create)="onCreate($event, comment) "></comment-reply-component>
+</article>

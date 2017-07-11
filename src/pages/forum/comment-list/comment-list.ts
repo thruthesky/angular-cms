@@ -11,21 +11,4 @@ export class CommentListComponent implements OnInit {
 
     ngOnInit() { }
 
-
-    onCreate( newComment: COMMENT, parent: COMMENT ) {
-        console.log("comment created", newComment);
-        let path = newComment.path;
-        let paths = path.split('/');
-        paths.pop();
-        let parentPath = paths.join('/');
-        if ( this.comments && this.comments.length ) {
-            let re = this.comments.findIndex( v => v.path == parentPath );
-            if ( re == -1 ) this.comments.unshift( newComment );
-            else {
-                newComment.depth = parent.depth + 1;
-                this.comments.splice( re + 1, 0, newComment );
-            }
-        }
-        else this.comments = [ newComment ];
-    }
 }

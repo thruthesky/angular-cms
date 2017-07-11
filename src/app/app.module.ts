@@ -38,6 +38,8 @@ import { ForumPageModule } from '../pages/forum/forum-page.module';
 
 import { AlertModal } from '../modals/alert/alert';
 import { AppService } from '../providers/app.service';
+import { LibraryService } from './../providers/library';
+
 
 import * as firebase from 'firebase';
 
@@ -73,6 +75,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppService,
+    LibraryService,
     { provide: ErrorHandler, useClass: CustomErrorHandler },
     PageScroll
   ],
