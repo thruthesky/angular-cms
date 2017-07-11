@@ -9,9 +9,13 @@
 
   <hr *ngIf=" ! (i % pageSize) ">
 
-  <post-view-component *ngIf=" postData[k] " [post]=" postData[k] " (edit)=" onEditPost( $event ) "></post-view-component>
-  <comment-list-component [comments]="postData[k]['comments']"></comment-list-component>
+  <section class="post" *ngIf=" postData[k] ">
 
+
+
+    <post-view-component [post]=" postData[k] " (edit)=" onEditPost( $event ) "></post-view-component>
+    <comment-list-component [comments]="postData[k]['comments']"></comment-list-component>
+  </section>
 
 
 </div>

@@ -26,10 +26,10 @@ export class AppService {
     kakao;
     constructor(
         public user: UserService,
-        public lib: LibraryService,
         public forum: ForumService,
+        public lib: LibraryService,
         private ngZone: NgZone,
-        private router: Router,
+        private router: Router
     ) {
         console.log("AppService::constructor()");
         this.auth = firebase.auth();

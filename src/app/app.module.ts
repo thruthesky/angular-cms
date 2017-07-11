@@ -21,10 +21,7 @@ import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 // global custom error handler. need help here.
 import { CustomErrorHandler } from './app.error-handler';
 
-
 import { PageScroll } from './../providers/page-scroll';
-
-
 
 import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,18 +29,15 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 
-
 import { ForumPageModule } from '../pages/forum/forum-page.module';
 
-
-import { AlertModal } from '../modals/alert/alert';
 import { AppService } from '../providers/app.service';
 import { LibraryService } from './../providers/library';
 
 
 import * as firebase from 'firebase';
 
-firebase.initializeApp( environment.firebase );
+firebase.initializeApp(environment.firebase);
 
 
 const appRoutes: Routes = [
@@ -60,13 +54,12 @@ const appRoutes: Routes = [
     HomePage,
     RegisterPage,
     LoginPage,
-    ProfilePage,
-    AlertModal
+    ProfilePage
   ],
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forRoot( appRoutes ),
+    RouterModule.forRoot(appRoutes),
     HttpModule,
     FirebaseBackendModule,
     NgbModule.forRoot(),

@@ -165,9 +165,10 @@ export class PostListComponent implements OnInit, AfterViewInit {
      * @param post Post
      */
     addPostOnTop(key: string, post?: POST) {
-        console.log(this.postKeys);
+        console.log("addPostOnTop. Key: ", key);
+        // console.log(this.postKeys);
         this.postKeys.unshift(key);
-        console.log(this.postKeys);
+        // console.log(this.postKeys);
         this.updatePost(key, post);
         this.getPostExtraData(post, { comments: false });
     }
@@ -191,13 +192,22 @@ export class PostListComponent implements OnInit, AfterViewInit {
      * @param post Post to get comments of.
      */
     getPostExtraData(post: POST, o?: { comments: boolean }) {
-        o = Object.assign( { comments: true }, o );
-        this.app.user.getUserProfile( post.uid ).then( (user: PROFILE) => {
-            this.postData[post.key]['user'] = user;
-        });
+
+        if ( ! post ) return;
+
+        o = Object.assign({ comments: true }, o);
+
+        if (post.uid) {
+            this.app.user.getUserProfile(post.uid).then((user: PROFILE) => {
+                this.postData[post.key]['user'] = user;
+            })
+                .catch(e => {
+                    // @todo user information is missing.
+                });
+        }
 
         /// get comments.
-        if (o && o.comments) {
+        if (o && o.comments && post.key ) {
             this.app.forum.getComments(post.key).then(comments => {
                 if (!this.app.forum.isEmpty(comments)) {
                     this.postData[post.key]['comments'] = this.app.forum.commentsTreeToArray(comments);
