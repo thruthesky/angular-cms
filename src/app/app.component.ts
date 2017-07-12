@@ -21,8 +21,6 @@ export class AppComponent {
     document.addEventListener('deviceready', () => this.onDeviceReady(), false);
     // test.run();
 
-
-    
   }
 
   onDeviceReady() {

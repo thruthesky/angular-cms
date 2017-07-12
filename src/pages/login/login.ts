@@ -18,7 +18,7 @@ import { AppService } from './../../providers/app.service';
   styleUrls: ['./login.scss']
 })
 export class LoginPage implements OnInit, AfterViewInit {
-  
+
 
   email;
   password;
@@ -28,6 +28,7 @@ export class LoginPage implements OnInit, AfterViewInit {
     // public user: UserService
   ) {
 
+      console.log('LoginPage::construcotr()');
 
     // user.getProfile(profile => this.profile = profile, e => console.log(e.message));
 
@@ -150,8 +151,8 @@ export class LoginPage implements OnInit, AfterViewInit {
 
 
   onSubmitLogin() {
-    this.app.user.login( this.email, this.password )
-      .then(()=>this.app.loggedIn( () => this.loggedIn() ))
+    this.app.user.login(this.email, this.password)
+      .then(() => this.app.loggedIn(() => this.loggedIn()))
       .catch(e => this.firebaseSocialLogniError(e));
   }
 
