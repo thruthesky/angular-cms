@@ -31,4 +31,11 @@ export class LibraryService {
         return this.isEqualDates(d1, d2);
     }
 
+
+    isCordova(): boolean {
+        if (window['cordova']) return true;
+        if (document.URL.indexOf('http://') === -1
+            && document.URL.indexOf('https://') === -1) return true;
+        return false;
+    }
 }

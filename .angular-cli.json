@@ -10,7 +10,10 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "manifest.json"
+        "manifest.json",
+        "firebase-messaging-sw.js",
+        "google-services.json",
+        "GoogleService-Info.plist"
       ],
       "index": "index.html",
       "main": "main.ts",

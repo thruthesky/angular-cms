@@ -25,12 +25,14 @@ export class ProfilePage implements OnInit, AfterViewInit, OnDestroy {
     this.initProfile();
   }
   initProfile() {
-    this.subscriptionLoadProfile = this.app.user.loadProfile.subscribe(load => {
-      if ( load ) {
+    this.subscriptionLoadProfile = this.app.user.loadProfileState.subscribe(load => {
+      if (load) {
         this.name = this.app.user.profile.name;
         this.gender = this.app.user.profile.gender;
         this.birthday = this.app.user.profile.birthday;
         this.mobile = this.app.user.profile.mobile;
+      } else {
+        console.log("User logged out");
       }
     });
   }

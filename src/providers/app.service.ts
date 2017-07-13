@@ -15,6 +15,7 @@ import {
 
 
 
+import { SharedService } from './shared.service';
 import { LibraryService } from './library';
 
 
@@ -25,6 +26,7 @@ export class AppService {
     root: firebase.database.Reference;
     kakao;
     constructor(
+        public share: SharedService,
         public user: UserService,
         public forum: ForumService,
         public push: PushMessageService,

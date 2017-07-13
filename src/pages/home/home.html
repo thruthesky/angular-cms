@@ -1,9 +1,4 @@
-<h1>Home</h1>
-
-
-
-
-
+<h1>HOME</h1>
 <div class="buttons">
 <button class="btn btn-primary" routerLink="/register">Go to register page</button>
 <button class="btn btn-primary" routerLink="/forum">Go to forum page</button>
@@ -12,9 +7,8 @@
 <button (click)=" app.user.logout() ">Loggout</button>
 </div>
 
+<a href="https://www.sonub.com" target="_blank">Sonub.com</a>
 <hr>
-
-
 <button routerLink="/forum/abc">Go to abc forum</button>
 <button routerLink="/forum/music">Go to music forum</button>
 
@@ -27,14 +21,12 @@ login: {{ app.user.isLogin | json }}<br>
 user: {{ app.user.auth.currentUser | json }}-->
 <hr>
 <div *ngIf=" app.user.profile ">
-  Welcome, {{ app.user.profile.name }} ( {{ app.user.profile.email }})<br>
+  Welcome, name: {{ app.user.profile.name }} email: {{ app.user.profile.email }}<br>
   <img src="{{ app.user.profile.photoURL }}"><br>
-
   Am i admin? : {{ app.user.isAdmin }}
 </div>
-
 <div>
-  Device Info:
+  Device Info:<br>
   Model: {{ device['model'] }}
   Version: {{ device['version'] }}
 </div>

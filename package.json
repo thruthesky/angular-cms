@@ -11,12 +11,14 @@
         "e2e": "ng e2e",
         "hmr": "ng serve --hmr -e=hmr",
         "s": "sudo ng serve --ssl true --ssl-key './tmp/privkey.pem' --ssl-cert './tmp/fullchain.pem' --host sonub.com --port 443",
-        "publish": "npm run build:aot:www && npm run deploy",
+        "publish": "npm run build:prod:aot:www && npm run deploy",
+        "deploy": "firebase deploy",
         "setup": "npm run build-ie-polyfills",
         "build-ie-polyfills": "node node_modules/webpack/bin/webpack.js -p src/ie-polyfills.js src/assets/js/ie-polyfills.min.js",
-        "build:www": "ng build --prod --output-path=www",
-        "build:aot:www": "ng build --prod --aot --output-path=www",
-        "deploy": "firebase deploy"
+        "build:www": "ng build --output-path=www",
+        "build:prod:www": "ng build --prod --output-path=www",
+        "build:prod:aot:www": "ng build --prod --aot --output-path=www",
+        "build:android": "ng build --output-path=www --base-href=/android_asset/www/"
     },
     "private": true,
     "dependencies": {

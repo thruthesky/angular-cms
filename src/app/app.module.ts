@@ -22,6 +22,7 @@ import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 import { CustomErrorHandler } from './app.error-handler';
 
 /// app service
+import { SharedService } from './../providers/shared.service';
 import { PageScroll } from './../providers/page-scroll';
 import { AppService } from '../providers/app.service';
 import { LibraryService } from './../providers/library';
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppService,
+    SharedService,
     LibraryService,
     { provide: ErrorHandler, useClass: CustomErrorHandler },
     PageScroll
