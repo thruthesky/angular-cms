@@ -2,37 +2,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
-
-
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { environment } from '../environments/environment';
 
+/// firebase
+import { environment } from '../environments/environment';
 import { FirebaseBackendModule } from './../firebase-backend/firebase-backend.module';
 
 
+
+/// Bootstrap CSS Framework 4.x
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-
 import { BootstrapModule } from '../providers/bootstrap/bootstrap-module';
 
-// global custom error handler. need help here.
+
+
+/// Custom error handler. need help here.
 import { CustomErrorHandler } from './app.error-handler';
 
+/// app service
 import { PageScroll } from './../providers/page-scroll';
+import { AppService } from '../providers/app.service';
+import { LibraryService } from './../providers/library';
 
+
+/// app component
 import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 
+/// forum module
 import { ForumPageModule } from '../pages/forum/forum-page.module';
-
-import { AppService } from '../providers/app.service';
-import { LibraryService } from './../providers/library';
 
 
 import * as firebase from 'firebase';

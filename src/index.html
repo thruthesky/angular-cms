@@ -8,6 +8,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f27b00">
 </head>
 
 <body>
@@ -40,7 +42,7 @@
       // then append it to the document so that its eval-ed synchronously
       // this is required because the method used for IE is not reliable with other non-evergreen browsers
       var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", function() {
+      xhr.addEventListener("load", function () {
         var s = document.createElement('script');
         s.type = 'text/javascript';
         var code = this.responseText;

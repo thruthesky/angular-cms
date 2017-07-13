@@ -1,0 +1,97 @@
+{
+    "gcm_sender_id": "103953800507",
+    "start_url": "https://www.sonub.com/index.html?from=manifest",
+    "icons": [
+        {
+            "src": "/assets/img/manifest-icons/057146df-cd9a-69ad-0126-b32d04000137.webPlatform.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/32f459c4-4ec0-6917-67f9-3b8ee8dcaa7b.webPlatform.png",
+            "sizes": "1240x600",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/4d49066d-b5da-4670-d645-9e3e22ae8127.webPlatform.png",
+            "sizes": "300x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/5db861c1-cec9-ab39-8982-a9a238d5cad6.webPlatform.png",
+            "sizes": "88x88",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/6e9daf8d-d913-404b-81d0-5be125d5661d.webPlatform.png",
+            "sizes": "24x24",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/d3b1fc2a-7ef4-45f8-bba9-4a40262f3e06.webPlatform.png",
+            "sizes": "50x50",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/32690473-d261-6cfc-6bd3-78a8ef8e31b3.webPlatform.png",
+            "sizes": "620x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/32c2f6c7-de0e-ac34-83bf-7453139e8ef8.webPlatform.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/d3960431-9e43-bb41-b30e-5fceeb0e74db.webPlatform.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/931a8a76-1639-fbbf-3aff-12b1d385f709.webPlatform.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/53a95968-bf79-be6e-1c08-469c6d5f9d65.webPlatform.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/9efe45ea-4f4f-15e7-d20f-ae8ce56455d8.webPlatform.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/30cd7141-064d-d66e-3a1c-5c1abbf28e2b.webPlatform.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/c7f25a0b-9a51-245e-cf76-e95a92aa57b3.webPlatform.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/fb9f555d-aa40-8894-2aa2-e6bd620f48db.webPlatform.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/a21ac603-c777-a210-a676-c007b6079ef8.webPlatform.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/manifest-icons/ff27a1e0-2226-53f4-9bd4-16e33d8874f7.webPlatform.png",
+            "sizes": "76x76",
+            "type": "image/png"
+        }
+    ],
+    "display": "fullscreen",
+    "orientation": "any",
+    "lang": "",
+    "name": "Sonub",
+    "short_name": "Sonub",
+    "description": "Social network hub. Enjoy the community. Life, Interest, Job, etc."
+}

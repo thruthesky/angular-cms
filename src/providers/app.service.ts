@@ -9,7 +9,7 @@ import config from './../app/config';
 
 
 import {
-    UserService, ForumService,
+    UserService, ForumService, PushMessageService,
     SOCIAL_PROFILE, USER_REGISTER
 } from './../firebase-backend/firebase-backend.module';
 
@@ -27,6 +27,7 @@ export class AppService {
     constructor(
         public user: UserService,
         public forum: ForumService,
+        public push: PushMessageService,
         public lib: LibraryService,
         private ngZone: NgZone,
         private router: Router
@@ -74,17 +75,17 @@ export class AppService {
      * 
      * @param a String or Error object.
      */
-    warning( a ) {
+    warning(a) {
         let str = '';
-        if ( typeof a === 'string' ) str = a;
+        if (typeof a === 'string') str = a;
         else {
-            if ( a['code'] ) str += a['code'] + ': ';
-            if ( a['message'] ) str += a['message'];
+            if (a['code']) str += a['code'] + ': ';
+            if (a['message']) str += a['message'];
         }
-        alert( str );
+        alert(str);
     }
-    alert( a ) {
-        this.warning( a );
+    alert(a) {
+        this.warning(a);
     }
 
 
@@ -167,17 +168,17 @@ export class AppService {
     socialLoggedIn(user: SOCIAL_PROFILE, callback) {
         console.log("updateUserProfile()");
         //this.user.auth.onAuthStateChanged((firebaseUser: firebase.User) => {
-            // this.user.setLoginUser( firebaseUser );
-            // console.log("AppService::loggedIn() => onAuthStateChanged()");
-            // if (fUser) { // user logged in.
-                this.user.updateProfile(user).then(() => {
-                    this.loggedIn( callback );
-                })
-                .catch(e => console.error(e));
-            // }
-            // else {
+        // this.user.setLoginUser( firebaseUser );
+        // console.log("AppService::loggedIn() => onAuthStateChanged()");
+        // if (fUser) { // user logged in.
+        this.user.updateProfile(user).then(() => {
+            this.loggedIn(callback);
+        })
+            .catch(e => console.error(e));
+        // }
+        // else {
 
-            // }
+        // }
         //});
     }
 
@@ -190,7 +191,7 @@ export class AppService {
      *      - and much more.
      * @param callback Callback
      */
-    loggedIn( callback ) {
+    loggedIn(callback) {
         callback();
 
 
@@ -233,9 +234,9 @@ export class AppService {
     }
 
 
-    go( path, msg?: string ) {
-        if ( msg ) alert( msg );
-        this.router.navigateByUrl( path );
+    go(path, msg?: string) {
+        if (msg) alert(msg);
+        this.router.navigateByUrl(path);
     }
 
 
@@ -256,14 +257,14 @@ export class AppService {
      * @param failureCallback 
      * @param progressCallback 
      */
-    upload( filename, data, successCallback: (url: string) => void, failureCallback: (e:string) => void, progressCallback: (percent: number) => void) {
-        
-        if ( ! this.user.isLogin ) return failureCallback( ERROR.user_not_logged_in );
+    upload(filename, data, successCallback: (url: string) => void, failureCallback: (e: string) => void, progressCallback: (percent: number) => void) {
+
+        if (!this.user.isLogin) return failureCallback(ERROR.user_not_logged_in);
 
         let root = firebase.storage().ref();
         let uploadTask = root.child('upload')
             .child(this.user.uid)
-            .child( this.forum.randomString() + '---' + filename )
+            .child(this.forum.randomString() + '---' + filename)
             .put(data);
         uploadTask.then(snapshot => {
             successCallback(snapshot.downloadURL);
