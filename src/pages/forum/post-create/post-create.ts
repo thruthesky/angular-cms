@@ -22,7 +22,8 @@ export class PostCreateComponent implements OnInit {
     subject: string;
     content: string;
     categories = {};
-    dbCategories: CATEGORIES
+    dbCategories: CATEGORIES;
+    
 
 
     /// file
@@ -68,7 +69,7 @@ export class PostCreateComponent implements OnInit {
 
     onSubmitPostForm() {
         let post: POST = {
-            function: 'createPost',
+            route: 'createPost',
             uid: this.app.user.uid,
             secret: this.app.user.secretKey,
             name: this.app.user.profile.name,

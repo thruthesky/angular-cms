@@ -1,56 +1,16 @@
 # Angular CMS
 
-For Angular Project.
+
+@see [SONUB.COM - Developer's Guide](https://docs.google.com/document/d/1m3-wYZOaZQGbAzXeVlIpJNSdTIt3HCUiIt9UTmZUgXo/edit#heading=h.fs56b2snlv9n)
 
 
 # TODO
 
-* See issue on github
+@See issues [Overv.io](https://overv.io/thruthesky/sonub/)
 
 # Installation
 
-* See [google document installation](https://docs.google.com/document/d/1m3-wYZOaZQGbAzXeVlIpJNSdTIt3HCUiIt9UTmZUgXo/edit#heading=h.l9licggeiek6)
-
-
-
-
-
-# Build
-
-https://docs.google.com/document/d/1m3-wYZOaZQGbAzXeVlIpJNSdTIt3HCUiIt9UTmZUgXo/edit#heading=h.bucmhvolmqk8
-
-
-
-
-# CODING GUIDELINE - STYLE GUIDE
-
-
-
-
-## Config
-
-Set all the configuration in ./app/config.ts
-
-
-
-
-
-# 3rd party libraries
-
-* jQuery
-
-* naver login api
-
-
-* kakao api
-
-
-
-
-
-
-# Code scaffolding
-
+@see [Google document installation: SONUB.COM - Developer's Guide](https://docs.google.com/document/d/1m3-wYZOaZQGbAzXeVlIpJNSdTIt3HCUiIt9UTmZUgXo/edit#heading=h.l9licggeiek6)
 
 
 

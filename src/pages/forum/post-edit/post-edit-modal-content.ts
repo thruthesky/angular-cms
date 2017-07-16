@@ -69,8 +69,7 @@ export class PostEditModalContent implements AfterViewInit {
     let categoryArray = this.formGroup.get('categories').value;
     if (checked) { // add
       categoryArray.push(value);
-    }
-    else { // remove
+    } else { // remove
       categoryArray = categoryArray.filter(v => v !== value)
     }
     this.formGroup.get('categories').setValue(categoryArray);
@@ -83,7 +82,7 @@ export class PostEditModalContent implements AfterViewInit {
         let form = <POST> this.formGroup.value;
         console.log("Going to create a post : ", form);
 
-        form.function = 'editPost';
+        form.route = 'editPost';
         form.uid = this.user.uid;
         form.name = this.user.profile.name;
         form.key = this.post.key;

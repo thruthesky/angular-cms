@@ -29,40 +29,40 @@ export class CommentReplyComponent implements OnInit, AfterViewInit {
         public app: AppService,
         private api: ApiService
     ) {
-        
+
     }
 
     ngOnInit() { }
 
     ngAfterViewInit() {
-        setTimeout(()=>this.afterChangeDetection(), 1);
+        setTimeout(() => this.afterChangeDetection(), 1);
     }
 
     afterChangeDetection() {
-        if ( this.post && this.post.user ) this.user = this.post.user;
-        else if ( this.comment && this.comment.user ) this.user = this.comment.user;
+        if (this.post && this.post.user) this.user = this.post.user;
+        else if (this.comment && this.comment.user) this.user = this.comment.user;
         else this.user = null;
     }
 
     onClickSubmit() {
-        let comment: COMMENT = {
-            function: 'createComment',
+        let commentData: COMMENT = {
+            route: 'createComment',
             path: this.path,
             uid: this.app.user.uid,
             secret: this.app.user.secretKey,
             content: this.content
         };
-        this.api.post(comment).subscribe(res => {
-            if ( res['code'] != 0 ) return this.app.warning( res['message'] );
+        this.api.post(commentData).subscribe(res => {
+            if (res['code'] != 0) return this.app.warning(res['message']);
 
             let path = res['data'];
             console.log("Path: ", path);
-            this.app.forum.getComments( path )
-            .then( comment => {
-                this.create.emit( comment );
-            })
-            .catch( e => this.app.warning(e));
+            this.app.forum.getComments(path)
+                .then(comment => {
+                    this.create.emit(comment);
+                })
+                .catch(e => this.app.warning(e));
         },
-        e => this.app.warning(e));
+            e => this.app.warning(e));
     }
 }
