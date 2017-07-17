@@ -13,7 +13,6 @@ declare let FCMPlugin;
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'app';
   constructor(
     // test: TestService,
     app: AppService,
