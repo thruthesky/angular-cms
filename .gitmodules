@@ -1,6 +1,3 @@
 [submodule "src/firebase-backend"]
 	path = src/firebase-backend
 	url = https://github.com/thruthesky/firebase-backend
-[submodule "src/component-library"]
-	path = src/component-library
-	url = https://github.com/thruthesky/component-library
