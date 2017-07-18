@@ -17,7 +17,7 @@ import 'rxjs/add/operator/toPromise';
 
 import {
     PUSH_MESSAGE,
-    USER_PUSH_TOKEN_PATH
+    USER_PUSH_TOKEN_PATH, USER_TOKEN
 } from './../firebase-backend/src/interface';
 
 import { ERROR } from './../firebase-backend/src/model/error/error';
@@ -25,8 +25,6 @@ import { Base } from './../firebase-backend/src/model/base/base';
 import { UserService } from './../firebase-backend/src/model/user/user.service';
 import * as lib from './../shared-library/shared-library';
 
-
-const USER_TOKEN = 'user-token';
 
 
 declare let FCMPlugin;
@@ -173,24 +171,6 @@ export class PushMessageService extends Base {
     }
 
 
-
-    /**
-     * 
-     * @param uid User ID
-     * @param tokenToUpdate 
-     */
-    private updateToken(uid, tokenToUpdate) {
-
-        let promise;
-        if (uid) promise = this.token(uid).set(tokenToUpdate);
-        else promise = this.anonymousToken(tokenToUpdate).set(true);
-        promise
-            .then(() => {
-                localStorage.setItem(USER_TOKEN, tokenToUpdate);
-            })
-            .catch(e => console.error(e));
-
-    }
 
 
 
