@@ -12,6 +12,7 @@
 # compiled output
 /www
 /dist
+/doc
 /out-tsc
 
 # dependencies

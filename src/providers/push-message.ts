@@ -174,14 +174,19 @@ export class PushMessageService extends Base {
 
 
 
-    private updateToken(uid, currentToken) {
+    /**
+     * 
+     * @param uid User ID
+     * @param tokenToUpdate 
+     */
+    private updateToken(uid, tokenToUpdate) {
 
         let promise;
-        if (uid) promise = this.token(uid).set(currentToken);
-        else promise = this.anonymousToken(currentToken).set(true);
+        if (uid) promise = this.token(uid).set(tokenToUpdate);
+        else promise = this.anonymousToken(tokenToUpdate).set(true);
         promise
             .then(() => {
-                localStorage.setItem(USER_TOKEN, currentToken);
+                localStorage.setItem(USER_TOKEN, tokenToUpdate);
             })
             .catch(e => console.error(e));
 
