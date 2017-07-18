@@ -40,7 +40,8 @@ export class CommentViewComponent implements OnInit, AfterViewInit {
         let paths = path.split('/');
         paths.pop();
         let parentPath = paths.join('/');
-        if ( this.comments && this.comments.length ) {
+        if ( this.comments && this.comments.length) {
+            console.log(this.comments);
             let re = this.comments.findIndex( v => v.path == parentPath );
             if ( re == -1 ) this.comments.unshift( newComment );
             else {

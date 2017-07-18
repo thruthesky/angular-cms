@@ -1,3 +1,9 @@
 [submodule "src/firebase-backend"]
 	path = src/firebase-backend
 	url = https://github.com/thruthesky/firebase-backend
+[submodule "src/shared-library"]
+	path = src/shared-library
+	url = https://github.com/thruthesky/shared-library
+[submodule "src/component-library"]
+	path = src/component-library
+	url = https://github.com/thruthesky/component-library

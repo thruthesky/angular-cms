@@ -26,6 +26,8 @@ import { SharedService } from './../providers/shared.service';
 import { PageScroll } from './../providers/page-scroll';
 import { AppService } from '../providers/app.service';
 import { LibraryService } from './../providers/library';
+import { PushMessageService } from './../providers/push-message';
+
 
 
 /// app component
@@ -74,6 +76,7 @@ const appRoutes: Routes = [
     AppService,
     SharedService,
     LibraryService,
+    PushMessageService,
     { provide: ErrorHandler, useClass: CustomErrorHandler },
     PageScroll
   ],

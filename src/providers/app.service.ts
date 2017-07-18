@@ -9,7 +9,7 @@ import config from './../app/config';
 
 
 import {
-    UserService, ForumService, PushMessageService,
+    UserService, ForumService,
     SOCIAL_PROFILE, USER_REGISTER
 } from './../firebase-backend/firebase-backend.module';
 
@@ -17,6 +17,7 @@ import {
 
 import { SharedService } from './shared.service';
 import { LibraryService } from './library';
+import { PushMessageService } from './push-message';
 
 
 @Injectable()

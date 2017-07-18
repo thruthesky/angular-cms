@@ -55,10 +55,16 @@ export class CommentReplyComponent implements OnInit, AfterViewInit {
         this.api.post(commentData).subscribe(res => {
             if (res['code'] != 0) return this.app.warning(res['message']);
 
-            let path = res['data'];
+            let path: string = res['data'];
             console.log("Path: ", path);
             this.app.forum.getComments(path)
                 .then(comment => {
+                    this.app.forum.getParentTokens(path)
+                        .then( (uids: Array<string>) => {
+                            console.log("uids: ", uids);
+                            /// 여기서 부터.
+                            /// UID 를 가져 왔으면, 하나씩 push 메세지를 전송 할 것.
+                        });
                     this.create.emit(comment);
                 })
                 .catch(e => this.app.warning(e));
