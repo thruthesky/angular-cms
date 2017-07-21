@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 
 
@@ -32,10 +32,9 @@ import { PushMessageService } from './../providers/push-message';
 
 /// app component
 import { AppComponent } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
-import { ProfilePage } from '../pages/profile/profile';
+import { HomePage } from './home/home';
+import { HomeModule } from './home/home.module';
+
 
 /// forum module
 import { ForumPageModule } from '../pages/forum/forum-page.module';
@@ -47,30 +46,26 @@ firebase.initializeApp(environment.firebase);
 
 
 const appRoutes: Routes = [
-  { path: 'register', component: RegisterPage },
-  { path: 'profile', component: ProfilePage },
-  { path: 'login', component: LoginPage },
+  { path: 'user', loadChildren: './user/user.module#UserModule' },
   { path: '', component: HomePage, pathMatch: 'full' },
   { path: '**', component: HomePage }
 ];
 
+
 @NgModule({
   declarations: [
-    AppComponent,
-    HomePage,
-    RegisterPage,
-    LoginPage,
-    ProfilePage
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
     HttpModule,
     FirebaseBackendModule,
     NgbModule.forRoot(),
     BootstrapModule,
-    ForumPageModule
+    RouterModule.forRoot(appRoutes),
+    ForumPageModule,
+    HomeModule
   ],
   providers: [
     AppService,
@@ -82,4 +77,8 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
+}

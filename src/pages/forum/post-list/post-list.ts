@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnDestroy } from '@angular/core';
 import { AppService } from './../../../providers/app.service';
 import {
     UserService,
@@ -19,7 +19,7 @@ import { PageScroll } from './../../../providers/page-scroll';
     templateUrl: 'post-list.html'
 })
 
-export class PostListComponent implements OnInit, AfterViewInit {
+export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // post list
     postKeys: Array<string> = [];
@@ -144,6 +144,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
      */
     watchNewPost() {
         this.app.forum.postData().orderByKey().limitToLast(1).on('child_added', snap => {
+            console.log("I got new post: ", snap.val());
             if (this.watchCount++ == 0) return;
             let post = snap.val();
             if (post) this.addPostOnTop(snap.key, post);
@@ -175,7 +176,10 @@ export class PostListComponent implements OnInit, AfterViewInit {
     addPostAtBottom(key: string, post?: POST) {
         this.postKeys.push(key);
         this.updatePost(key, post);
-        if (post) this.postData[key] = post;
+        if (post) {
+            this.postData[key] = post;
+            this.getPostExtraData(post);
+        }
         else {
             this.app.forum.postData(key).once('value').then(s => {
                 let post: POST = s.val();
@@ -193,13 +197,15 @@ export class PostListComponent implements OnInit, AfterViewInit {
      */
     getPostExtraData(post: POST, o?: { comments: boolean }) {
 
-        if ( ! post ) return;
+        if (!post) return;
 
         o = Object.assign({ comments: true }, o);
 
         if (post.uid) {
             this.app.user.getUserProfile(post.uid).then((user: PROFILE) => {
                 this.postData[post.key]['user'] = user;
+
+                this.app.render();
             })
                 .catch(e => {
                     // @todo user information is missing.
@@ -207,12 +213,14 @@ export class PostListComponent implements OnInit, AfterViewInit {
         }
 
         /// get comments.
-        if (o && o.comments && post.key ) {
+        if (o && o.comments && post.key) {
             this.app.forum.getComments(post.key).then(comments => {
                 if (!this.app.forum.isEmpty(comments)) {
                     this.postData[post.key]['comments'] = this.app.forum.commentsTreeToArray(comments);
                 }
                 else this.postData[post.key]['comments'] = [];
+
+                this.app.render();
             }, e => this.app.warning(e));
         }
     }

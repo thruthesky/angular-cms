@@ -45,7 +45,7 @@ export class PushMessageService extends Base {
         /// init
         this.messaging = firebase.messaging();
         this.db = firebase.database();
-        this.setRoot( this.db.ref() );
+        this.setRoot(this.db.ref());
         this.auth = firebase.auth();
 
         this.runIfWeb();
@@ -101,7 +101,7 @@ export class PushMessageService extends Base {
                                 return;
                             }
                             console.log("User token has chagned. so, going to update.");
-                            this.updateToken(uid, currentToken);
+                            this.updateToken(uid, currentToken).then(() => this.tokenUpdated(currentToken))
 
                         } else {
                             console.log('No Instance ID token available. Request permission to generate one.');
@@ -172,6 +172,10 @@ export class PushMessageService extends Base {
 
 
 
+    private tokenUpdated(token) {
+
+        localStorage.setItem(USER_TOKEN, token);
+    }
 
 
     /**
@@ -185,10 +189,9 @@ export class PushMessageService extends Base {
         FCMPlugin.onTokenRefresh((token) => {
             console.log("onDeviceReady() => onTokenRefresh: ", token);
             // alert(token);
-            // this.user.loginState.subscribe(uid => this.updateToken( uid, token) );
             this.user.auth.onAuthStateChanged(user => {
                 let uid = user ? user.key : null;
-                this.updateToken(uid, token);
+                this.updateToken(uid, token).then(() => this.tokenUpdated(token))
             });
         });
 
@@ -200,7 +203,7 @@ export class PushMessageService extends Base {
             this.user.auth.onAuthStateChanged(user => {
                 let uid = user ? user.uid : null;
                 console.log("cordovaInit() => getToken() => onAuthStateChanged: ", uid);
-                this.updateToken(uid, token);
+                this.updateToken(uid, token).then(() => this.tokenUpdated(token))
             });
         });
 

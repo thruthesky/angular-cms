@@ -4,7 +4,7 @@
 <button type="button" (click)="onClickCreatePost()">Create a Post</button>
 
 <categories-component *ngIf=" showCategory "></categories-component>
-<post-create-component *ngIf=" showPostCreateForm "></post-create-component>
+<post-create-component *ngIf=" showPostCreateForm " (sucess)=" true "></post-create-component>
 
 <hr>
 Select Category:

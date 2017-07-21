@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { AppService, ERROR, isError } from './../../providers/app.service';
-import { USER_REGISTER } from './../../firebase-backend/firebase-backend.module';
+import { AppService, ERROR, isError } from '../../../../providers/app.service';
+import { USER_REGISTER } from '../../../../firebase-backend/firebase-backend.module';
 
 @Component({
   selector: 'register-page',

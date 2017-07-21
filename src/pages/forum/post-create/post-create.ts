@@ -83,7 +83,7 @@ export class PostCreateComponent implements OnInit {
 
         this.api.post(post).subscribe(key => {
             console.log("Post create with key: ", key);
-            this.success.emit(<string><any>key);
+            this.success.emit(<any>key);
         }, e => {
 
             console.error(e);

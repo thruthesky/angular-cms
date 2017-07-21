@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { AppService, ERROR, isError } from './../../providers/app.service';
-import { USER_UPDATE } from './../../firebase-backend/firebase-backend.module';
+import { AppService, ERROR, isError } from '../../../../providers/app.service';
+import { USER_UPDATE } from '../../../../firebase-backend/firebase-backend.module';
 @Component({
   selector: 'profile-page',
   templateUrl: './profile.html'
